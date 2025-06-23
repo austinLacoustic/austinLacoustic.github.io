@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Austin Lacoustic</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f9f9f9;
+      text-align: center;
+      padding-top: 100px;
+    }
+    h1 {
+      font-size: 2em;
+      margin-bottom: 50px;
+    }
+    .button {
+      display: inline-block;
+      margin: 20px;
+      padding: 20px 40px;
+      font-size: 1.2em;
+      text-decoration: none;
+      background-color: #222;
+      color: white;
+      border-radius: 8px;
+    }
+    .button:hover {
+      background-color: #444;
+    }
+    footer {
+      margin-top: 100px;
+      color: #888;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to AustinLacoustic.com</h1>
+  <a class="button" href="engineering.html">Engineering / Signal Processing</a>
+  <a class="button" href="music.html">Music / Education / Media</a>
+
+  <footer>
+    &copy; 2025 Austin Lakata · <a href="mailto:austinlakata@gmail.com">Contact</a>
+  </footer>
+</body>
+</html>
