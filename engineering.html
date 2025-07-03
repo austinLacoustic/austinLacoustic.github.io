@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>austinLacoustic | Signal Processing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #333;
+        }
+        header {
+            background-color: #111;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        section {
+            padding: 40px;
+            max-width: 900px;
+            margin: auto;
+        }
+        h1, h2, h3 {
+            color: #222;
+        }
+        .button {
+            background-color: #222;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .card {
+            background-color: #f9f9f9;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.08);
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #eee;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Signal Processing at austinLacoustic</h1>
+        <p>Discover the future of lossless waveform reconstruction</p>
+    </header>
+
+    <section>
+        <h2>Introduction</h2>
+        <p>
+            Traditional FFT methods introduce residual imaginary components that limit reconstruction fidelity.
+            Our novel Base-i and Mod-N encoding methods achieve zero-loss reconstruction with unprecedented precision.
+        </p>
+    </section>
+
+    <section>
+        <h2>Developer Toolkit</h2>
+        <p>
+            Download our Developer Toolkit to test signal encoding methods across real-world waveforms. This kit includes:
+            <ul>
+                <li>Python/Colab scripts for testing FFT, Base-i, Cube Root, and Mod-N methods</li>
+                <li>Audio samples and validation metrics</li>
+                <li>Spreadsheet of over 20 waveform types analyzed</li>
+                <li>Documentation and starter guide</li>
+            </ul>
+        </p>
+        <a class="button" href="#">Download Toolkit</a> <!-- Replace # with actual link when ready -->
+        <p style="font-size: 0.9em; margin-top: 10px;">Note: Use of this kit does not grant commercial rights. Contact for licensing inquiries.</p>
+    </section>
+
+    <section>
+        <h2>Performance Highlights</h2>
+        <p>
+            Mod-12 and Mod-24 encoding methods outperform FFT across every tested waveform, with perfect reconstruction (MSE = 0, Abs. Err. = 0) and zero residual imaginary signal. 
+            FFT, in contrast, introduces distortions up to 21.77 in residual imaginary amplitude.
+        </p>
+        <a class="button" href="#">View Full Results Spreadsheet</a> <!-- Replace with sheet link -->
+    </section>
+
+    <section>
+        <h2>Real-World Applications</h2>
+        <div class="card-grid">
+            <div class="card">
+                <h3>Audio Production</h3>
+                <p>Lossless compression and restoration of analog/digital audio signals without colorization.</p>
+            </div>
+            <div class="card">
+                <h3>Telecom</h3>
+                <p>Enhanced waveform fidelity in data transmission, especially under lossy conditions.</p>
+            </div>
+            <div class="card">
+                <h3>Defense / Submarine Comms</h3>
+                <p>Recover full signal clarity from underwater impulse tests or noise-dominated data.</p>
+            </div>
+            <div class="card">
+                <h3>AI & DSP Research</h3>
+                <p>Build models with pure time-domain accuracy. Ideal for hybrid AI/DSP processing models.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Contact</h2>
+        <p>
+            For licensing, collaboration, or to submit results from your tests using the Dev Kit, contact:
+            <a href="mailto:austin@austinlacoustic.com">austin@austinlacoustic.com</a>
+        </p>
+    </section>
+
+    <footer>
+        &copy; 2025 austinLacoustic LLC. All rights reserved.
+    </footer>
+</body>
+</html>
