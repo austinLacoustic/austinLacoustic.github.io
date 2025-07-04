@@ -296,9 +296,104 @@
     <h3>Educational Tools</h3>
     <p>Develop hands-on DSP training kits demonstrating the limitations of FFT vs. modern reconstruction methods.</p>
 </div>
-
     </section>
 
+    
+<section id="basei-vs-modn-vs-fft-comparison">
+  <h2>Base-i vs Mod-N vs FFT: Technical Comparison</h2>
+
+  <h3>Core Differences</h3>
+  <ul>
+    <li><strong>FFT</strong> is a global transform that reveals frequency content but loses time-order and phase continuity.</li>
+    <li><strong>Base-i</strong> is a per-sample complex encoding that preserves structure, phase, and temporal sequence.</li>
+    <li><strong>Mod-N</strong> generalizes Base-i using modular arithmetic across cyclic roots, enabling tailored encodings with strong reconstruction performance.</li>
+  </ul>
+
+  <h3>Comparison Table</h3>
+  <table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Base-i</th>
+        <th>Mod-N</th>
+        <th>FFT</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Time-order preserved</td>
+        <td>✅ Yes</td>
+        <td>✅ Yes</td>
+        <td>❌ No</td>
+      </tr>
+      <tr>
+        <td>Per-sample encoding</td>
+        <td>✅ Yes</td>
+        <td>✅ Yes</td>
+        <td>❌ No (bin-based)</td>
+      </tr>
+      <tr>
+        <td>Frequency insight</td>
+        <td>⚠️ Requires inference</td>
+        <td>⚠️ Requires inference</td>
+        <td>✅ Direct decomposition</td>
+      </tr>
+      <tr>
+        <td>Spectral leakage</td>
+        <td>✅ None</td>
+        <td>✅ None</td>
+        <td>⚠️ Requires windowing</td>
+      </tr>
+      <tr>
+        <td>Streaming / mid-signal decoding</td>
+        <td>✅ Yes</td>
+        <td>✅ Yes</td>
+        <td>❌ No (requires full context)</td>
+      </tr>
+      <tr>
+        <td>Lossless reconstruction</td>
+        <td>✅ Yes (0 MSE possible)</td>
+        <td>✅ Yes (Mod-12 and others)</td>
+        <td>⚠️ Precision-dependent</td>
+      </tr>
+      <tr>
+        <td>Convolution efficiency</td>
+        <td>❌ Not optimized for this</td>
+        <td>❌ Not optimized for this</td>
+        <td>✅ O(n log n) via FFT</td>
+      </tr>
+      <tr>
+        <td>Interpretability (visual structure)</td>
+        <td>✅ Spiral or geometric flow</td>
+        <td>✅ Clean geometry (e.g., Mod-12)</td>
+        <td>❌ Sparse and abstract</td>
+      </tr>
+      <tr>
+        <td>Dropout resilience</td>
+        <td>✅ Strong</td>
+        <td>✅ Strong</td>
+        <td>❌ Weak (requires complete signal)</td>
+      </tr>
+      <tr>
+        <td>Suitable for real-time streaming</td>
+        <td>✅ Yes</td>
+        <td>✅ Yes</td>
+        <td>❌ No</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Summary</h3>
+  <p>
+    <strong>FFT</strong> is powerful for direct frequency decomposition and fast convolution but is limited in temporal resolution, structure retention, and sample-level fidelity.
+  </p>
+  <p>
+    <strong>Base-i</strong> and <strong>Mod-N</strong> preserve exact time-domain geometry, enabling lossless storage, real-time decoding, and signal structure analysis. Mod-N, in particular, allows tuning of the encoding system using modular roots (e.g., Mod-12), offering phase-aware, compact representations with zero reconstruction error under optimal configurations.
+  </p>
+</section>
+
+
+    
     <section>
         <h2>Contact</h2>
         <p>
