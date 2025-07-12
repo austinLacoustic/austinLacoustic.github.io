@@ -143,7 +143,7 @@
                 Base-i, Mod-12 and Mod-24 encoding methods outperform FFT across every tested waveform, with perfect reconstruction (MSE = 0, Abs. Err. = 0) and zero residual imaginary signal results present. 
                 FFT, in contrast, introduces distortions up to 21.77 in residual imaginary amplitude.
             </p>
-            <a class="button" href="Mod-N Testing of Various Waveforms - austinLacoustic LLC.xlsx">View Full Results Spreadsheet</a>
+            <a class="button" href="Mod-N Testing of Various Waveforms - austinLacoustic LLC.xlsx">View Results Spreadsheet</a>
         </section>
 
         <br>
@@ -641,6 +641,21 @@
             <img src="babble_results.png" alt="Babble Noise Encoding Performance Metrics" loading="lazy" style="width:100%; max-width:450px; display:block;">
         </div>
 
+        <br>
+        
+        <p>
+        In applications requiring exact time-domain reconstruction and preservation of signal integrity, 
+            Base-i and Mod-N methods demonstrate superiority over traditional FFT-based approaches by 
+            achieving zero mean squared error (MSE), zero absolute error, and zero residual imaginary 
+            components in tested waveforms. FFT, while efficient for frequency-domain analysis, often 
+            introduces minor reconstruction artifacts due to its global transform nature, floating-point 
+            precision limitations, and potential spectral leakage—resulting in non-zero MSE 
+            (e.g., up to 5.31e-33 in our benchmarks) and residual imaginary values (e.g., up to 21.77). 
+            These advantages make Base-i and Mod-N particularly suitable for high-precision tasks like 
+            lossless audio archiving or noise-resilient data transmission, assuming signal lengths align 
+            with the cyclic bases and no frequency decomposition is needed.
+        </p>
+            
         <br>
         
         <section>
