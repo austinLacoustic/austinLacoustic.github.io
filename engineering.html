@@ -662,6 +662,8 @@
             <br>
             
             <p>
+                Patent Pending: Application Nos. 63/816,434 (Base-i, filed 06/02/2025), 
+                63/832,810 (Cube Root, filed 06/30/2025), 63/837,447 (Mod-N, filed 07/02/2025).  
                 All signal encoding materials, including methods, documentation, and data, are the 
                 intellectual property of Austin Lakata. Use of this site or its downloads does not 
                 grant commercial rights. Redistribution, reproduction, or implementation in commercial 
@@ -673,5 +675,20 @@
     <footer>
         © 2025 austinLacoustic LLC. All rights reserved.
     </footer>
+
+    <script>
+    fetch('https://ipapi.co/json/')
+        .then(response => response.json())
+        .then(data => {
+            if (data.country_code !== 'US') {
+                // Redirect to a restricted page or homepage with message
+                window.location.href = 'https://austinlacoustic.com/restricted.html'; // Create this page with a message like "Access restricted outside the US due to IP considerations."
+                // Alternative: Show a message instead of redirect
+                // document.body.innerHTML = '<h1>Access Restricted</h1><p>This content is available only in the US. Contact us for more info.</p>';
+            }
+        })
+        .catch(error => console.error('GeoIP error:', error));
+    </script>
+    
 </body>
 </html>
