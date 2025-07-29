@@ -601,14 +601,6 @@
             <img src="triangle_wave_clean_encodings.gif" alt="Triangle Wave Encoding Comparison: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
         </div>
 
-        <div class="image-container">
-            <img src="white_noise_results.png" alt="White Noise Encoding Performance Metrics" loading="lazy" style="width:100%; max-width:450px; display:block;">
-            <br>
-            <img src="chirp_results.png" alt="Chirp Signal Encoding Performance Metrics" loading="lazy" style="width:100%; max-width:450px; display:block;">
-            <br>
-            <img src="pink_noise_results.png" alt="Pink Noise Encoding Performance Metrics" loading="lazy" style="width:100%; max-width:450px; display:block;">
-        </div>
-
         <p>
             Base-i and Mod-N methods achieve near-lossless reconstruction (e.g., SNR 313.07 dB for impulse, 197.68 dB for noise signals) with zero residual imaginary components in optimal configurations. FFT introduces minor artifacts (e.g., MSE up to 5.31e-33 in earlier tests). Current challenges include optimizing compression ratios for real-world audio (e.g., 5-second chirp at 50.28 dB SNR) and boosting SNR for low-frequency signals like pink noise (175.37 dB).
         </p>
