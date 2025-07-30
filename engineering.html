@@ -121,6 +121,39 @@
             transition: transform 0.3s ease;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
+        .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 1200px;
+    overflow-x: auto;
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
     </style>
 </head>
 <body>
@@ -173,7 +206,7 @@
             <p style="font-size: 0.9em; margin-top: 10px;">Note: Use of this kit does not grant commercial rights. Contact <a href="mailto:austin@austinlacoustic.com">austin@austinlacoustic.com</a> for licensing inquiries.</p>
         </section>
 
-        <section>
+<section>
     <h2>Performance Highlights</h2>
     <p>
         Base-i and Mod-N methods outperform FFT for many waveforms, achieving near-zero MSE (e.g., 0.000000 for pulse, impulse) and high SNR (e.g., infinite dB for impulse, 187.12 dB for sine, 194.96 dB for chirp, 197.42 dB for pink noise). FFT introduces residual imaginary components (up to 21.77 in earlier tests), while Mod-N ensures zero residuals under optimal configurations (e.g., mod-n = 3, 5, π). Testing includes 12 synthetic waveforms and a 5-second chirp audio signal with compression ratio 6.05, SSIM >0.95, and audio test SNR of 132.47 dB.
@@ -965,13 +998,21 @@
     </footer>
 
     <script>
-        document.querySelectorAll('.accordion-header').forEach(header => {
-            header.addEventListener('click', () => {
-                header.classList.toggle('active');
-                const content = header.nextElementSibling;
-                content.classList.toggle('active');
-            });
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', () => {
+            header.classList.toggle('active');
+            const content = header.nextElementSibling;
+            content.classList.toggle('active');
         });
-    </script>
+    });
+
+    function openModal() {
+        document.getElementById("resultsModal").style.display = "block";
+    }
+
+    function closeModal() {
+        document.getElementById("resultsModal").style.display = "none";
+    }
+</script>
 </body>
 </html>
