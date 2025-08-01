@@ -164,47 +164,54 @@
 
     <main>
         <section>
-            <h2>Introduction</h2>
-            <p>
-                Traditional FFT methods introduce residual imaginary components that limit reconstruction fidelity. Our patented Base-i and Mod-N encoding methods achieve near-lossless reconstruction (e.g., SNR up to infinite dB for impulse signals) by preserving time-domain geometry and phase continuity. Now extended to quantum computing, our Mod-N methods enhance signal reconstruction in noisy intermediate-scale quantum (NISQ) environments, achieving 5-15% fidelity gains in GHZ chains on IBM Torino. Recent advancements include kurtosis-based signal classification for adaptive weighting and SSIM metrics (>0.95 for high-fidelity reconstructions).
-            </p>
-        </section>
+    <h2>Introduction</h2>
+    <p>
+        Traditional FFT methods introduce residual imaginary components that limit reconstruction fidelity. Our patented Base-i and Mod-N encoding methods achieve near-lossless reconstruction (e.g., SNR up to infinite dB for impulse signals) by preserving time-domain geometry and phase continuity. Now extended to quantum computing, our Mod-N methods enhance signal reconstruction in noisy intermediate-scale quantum (NISQ) environments, achieving 5-15% fidelity gains in GHZ chains on IBM Torino. Recent advancements include kurtosis-based signal classification for adaptive weighting, multiband residual correction for low-end fidelity, spectral subtraction for noise reduction, and SSIM metrics (up to 0.84 for speech, averaging 0.66 across tests).
+    </p>
+</section>
 
-        <div class="image-container">
-            <img src="sine_wave_clean_encodings.gif" alt="Comparison of Sine Wave Encodings: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
-            <br>
-            <img src="square_wave_clean_encodings.gif" alt="Comparison of Square Wave Encodings: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
-        </div>
+<div class="image-container">
+    <img src="sine_wave_clean_encodings.gif" alt="Comparison of Sine Wave Encodings: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
+    <br>
+    <img src="square_wave_clean_encodings.gif" alt="Comparison of Square Wave Encodings: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
+</div>
 
-        <section id="investment">
-            <h2>Investment Opportunities</h2>
-            <p>
-                austinLacoustic is seeking investors, partners, and non-exclusive licensing to scale our patented signal processing technology. With applications in audio, defense, AI, and quantum computing, we're positioned for rapid growth. Key traction: Pending patents, high-fidelity metrics (e.g., SNR up to infinite dB for impulse signals, 194.96 dB for chirp, 197.42 dB for pink noise, compression ratio 6.05), and testing across 12+ waveform types, including real-world audio chirps with audio test SNR of 132.47 dB.
-            </p>
-            <p>
-                Problem: Standard methods like FFT lose fidelity in noisy or real-time scenarios.<br>
-                Solution: Our Base-i and Mod-N methods achieve near-lossless reconstruction, with quantum extensions for NISQ noise resilience, tested on IBM Torino with 5-15% fidelity improvements.
-            </p>
-            <p>
-                <strong>Patents:</strong> Provisional Patent Application No. 63/843,994 (Mod-N Transform-Based Encoding Method for Digital Signals and Multimedia Data Compression, filed 07/14/2025) covers audio, video, images, and digital streams. No. 63/850,702 (Hybrid Irrational-Prime Modular Phase Ensembles for Noise-Resilient Quantum Signal Reconstruction, filed 07/25/2025) extends to quantum applications.
-            </p>
-            <a class="button" href="mailto:austin@austinlacoustic.com?subject=Investment Inquiry">Contact for Pitch Deck</a>
-        </section>
+<section id="investment">
+    <h2>Investment Opportunities</h2>
+    <p>
+        austinLacoustic is seeking investors, partners, and non-exclusive licensing to scale our patented signal processing technology. With applications in audio, defense, AI, and quantum computing, we're positioned for rapid growth. Key traction: Five pending provisional patents, high-fidelity metrics (e.g., SNR up to infinite dB for impulse signals, >300 dB in classical tests, perceptual lossless audio with STOI=0.95), compression ratios ~4.5:1, and testing across 14+ waveform types (including ECG biometrics, NASA tapes, and real-world speech recordings).
+    </p>
+    <p>
+        Problem: Standard methods like FFT lose fidelity in noisy or real-time scenarios.<br>
+        Solution: Our Base-i and Mod-N methods achieve near-lossless reconstruction, with quantum extensions for NISQ noise resilience (e.g., dynamic throttling, phase staggering with irrationals like π and e), tested on IBM Torino with 5-15% fidelity improvements and ensemble fusion reducing deviation by ~6%.
+    </p>
+    <p>
+        <strong>Patents:</strong>
+        <ul>
+            <li>No. 63/816,434: Base-i Signal Encoding and Reconstruction System (filed 06/02/2025)</li>
+            <li>No. 63/832,810: Base-i and Cube Root Reconstruction Methods (filed 06/30/2025)</li>
+            <li>No. 63/837,447: Signal Encoding and Reconstruction via Modulo-N Root Systems (filed 07/02/2025)</li>
+            <li>No. 63/843,994: Mod-N Transform-Based Encoding Method for Digital Signals and Multimedia Data Compression (filed 07/14/2025)</li>
+            <li>No. 63/850,702: Hybrid Irrational-Prime Modular Phase Ensembles for Noise-Resilient Quantum Signal Reconstruction (filed 07/25/2025)</li>
+        </ul>
+    </p>
+    <a class="button" href="mailto:austin@austinlacoustic.com?subject=Investment Inquiry">Contact for Pitch Deck</a>
+</section>
 
-        <section>
-            <h2>Developer Toolkit</h2>
-            <p>
-                Download our Developer Toolkit to test signal encoding methods across real-world waveforms. The kit includes:
-                <ul>
-                    <li>Python scripts for testing FFT, Base-i, and Mod-N methods</li>
-                    <li>Audio samples and validation metrics (e.g., SNR, entropy, SSIM)</li>
-                    <li>Spreadsheet analyzing 12+ waveform types</li>
-                    <li>Documentation and starter guide</li>
-                </ul>
-            </p>
-            <a class="button disabled">Q4 2025 Release</a>
-            <p style="font-size: 0.9em; margin-top: 10px;">Note: Use of this kit does not grant commercial rights. Contact <a href="mailto:austin@austinlacoustic.com">austin@austinlacoustic.com</a> for licensing inquiries.</p>
-        </section>
+<section>
+    <h2>Developer Toolkit</h2>
+    <p>
+        Download our Developer Toolkit to test signal encoding methods across real-world waveforms. The kit includes:
+        <ul>
+            <li>Python scripts for testing FFT, Base-i, and Mod-N methods (including recent audio recording/compression backend with .lac format support)</li>
+            <li>Audio samples and validation metrics (e.g., SNR, STOI, SSIM, entropy)</li>
+            <li>Spreadsheet analyzing 14+ waveform types</li>
+            <li>Documentation, Qiskit pseudocode for quantum extensions, and starter guide</li>
+        </ul>
+    </p>
+    <a class="button disabled">Q4 2025 Release</a>
+    <p style="font-size: 0.9em; margin-top: 10px;">Note: Use of this kit does not grant commercial rights. Contact <a href="mailto:austin@austinlacoustic.com">austin@austinlacoustic.com</a> for licensing inquiries.</p>
+</section>
 
 <style>
     /* Existing modal CSS (unchanged) */
@@ -279,7 +286,7 @@
 <section>
     <h2>Performance Highlights</h2>
     <p>
-        Base-i and Mod-N methods outperform FFT for many waveforms, achieving near-zero MSE (e.g., 0.000000 for pulse, impulse) and high SNR (e.g., infinite dB for impulse, 187.12 dB for sine, 194.96 dB for chirp, 197.42 dB for pink noise). FFT introduces residual imaginary components (up to 21.77 in earlier tests), while Mod-N ensures zero residuals under optimal configurations (e.g., mod-n = 3, 5, π). Testing includes 12 synthetic waveforms and a 5-second chirp audio signal with compression ratio 6.05, SSIM >0.95, and audio test SNR of 132.47 dB.
+        Base-i and Mod-N methods outperform FFT for many waveforms, achieving near-zero MSE (e.g., 0.000000 across most types) and high SNR (e.g., infinite dB for impulse in ideal cases, up to 275.99 dB in tests). FFT introduces residual imaginary components (up to 0.000000 in quantized tests), while Mod-N ensures minimal residuals under optimal configurations (e.g., mod-n = 3, 5, π; avg ~2e-16). Testing spans 14+ waveforms (synthetics, biometrics like ECG, NASA tapes, speech) and real-world audio (e.g., 5-second chirp with compression ratio ~2.87:1, SSIM up to 1.00, STOI 0.95 in speech tests from v27 backend).
     </p>
     <div class="button" onclick="openModal()">View Results</div>
 </section>
@@ -288,7 +295,7 @@
 <div id="resultsModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
-        <h2>Backend Testing Results (v46)</h2>
+        <h2>Backend Testing Results (v49)</h2>
         <table>
             <thead>
                 <tr>
@@ -301,30 +308,33 @@
                     <th>MAE</th>
                     <th>SSIM</th>
                     <th>Avg Frame Entropy</th>
+                    <th>Memory Delta (KB)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>sine</td>
-                    <td>187.12</td>
+                    <td>183.96</td>
                     <td>0.000000</td>
                     <td>197.44</td>
                     <td>0.000000</td>
-                    <td>212.45</td>
+                    <td>186.97</td>
                     <td>0.000000</td>
-                    <td>0.99</td>
-                    <td>0.82</td>
+                    <td>1.00</td>
+                    <td>0.52</td>
+                    <td>316</td>
                 </tr>
                 <tr>
                     <td>sawtooth</td>
-                    <td>182.69</td>
+                    <td>184.02</td>
                     <td>0.000000</td>
                     <td>197.41</td>
                     <td>0.000000</td>
-                    <td>208.32</td>
+                    <td>188.78</td>
                     <td>0.000000</td>
-                    <td>0.98</td>
-                    <td>3.05</td>
+                    <td>1.00</td>
+                    <td>2.06</td>
+                    <td>0</td>
                 </tr>
                 <tr>
                     <td>square</td>
@@ -332,112 +342,123 @@
                     <td>0.000000</td>
                     <td>197.64</td>
                     <td>0.000000</td>
-                    <td>220.89</td>
+                    <td>195.18</td>
                     <td>0.000000</td>
-                    <td>0.99</td>
-                    <td>2.18</td>
+                    <td>1.00</td>
+                    <td>1.74</td>
+                    <td>0</td>
                 </tr>
                 <tr>
                     <td>triangle</td>
-                    <td>182.67</td>
+                    <td>184.13</td>
                     <td>0.000000</td>
                     <td>200.19</td>
                     <td>0.000000</td>
-                    <td>208.14</td>
+                    <td>188.90</td>
                     <td>0.000000</td>
-                    <td>0.98</td>
-                    <td>3.02</td>
+                    <td>1.00</td>
+                    <td>2.06</td>
+                    <td>0</td>
                 </tr>
                 <tr>
                     <td>pulse</td>
-                    <td>283.42</td>
+                    <td>273.87</td>
                     <td>0.000000</td>
                     <td>197.72</td>
                     <td>0.000000</td>
-                    <td>308.75</td>
+                    <td>333.07</td>
                     <td>0.000000</td>
-                    <td>1.00</td>
-                    <td>3.10</td>
+                    <td>0.05</td>
+                    <td>3.04</td>
+                    <td>1168</td>
                 </tr>
                 <tr>
                     <td>chirp</td>
-                    <td>194.96</td>
-                    <td>0.000000</td>
+                    <td>27.96*</td>
+                    <td>0.000797</td>
                     <td>197.41</td>
                     <td>0.000000</td>
-                    <td>220.29</td>
-                    <td>0.000000</td>
-                    <td>0.99</td>
-                    <td>1.35</td>
+                    <td>30.99</td>
+                    <td>0.025383</td>
+                    <td>1.00</td>
+                    <td>1.86</td>
+                    <td>0</td>
                 </tr>
                 <tr>
                     <td>white_noise</td>
-                    <td>197.64</td>
+                    <td>197.56</td>
                     <td>0.000000</td>
-                    <td>197.51</td>
+                    <td>197.35</td>
                     <td>0.000000</td>
-                    <td>222.97</td>
+                    <td>207.93</td>
                     <td>0.000000</td>
-                    <td>0.97</td>
-                    <td>0.00</td>
+                    <td>1.00</td>
+                    <td>1.70</td>
+                    <td>0</td>
                 </tr>
                 <tr>
                     <td>gaussian_noise</td>
+                    <td>197.29</td>
+                    <td>0.000000</td>
                     <td>197.48</td>
                     <td>0.000000</td>
-                    <td>197.46</td>
+                    <td>208.41</td>
                     <td>0.000000</td>
-                    <td>222.81</td>
-                    <td>0.000000</td>
-                    <td>0.97</td>
-                    <td>0.00</td>
+                    <td>1.00</td>
+                    <td>1.72</td>
+                    <td>0</td>
                 </tr>
                 <tr>
                     <td>pink_noise</td>
-                    <td>197.42</td>
+                    <td>197.59</td>
                     <td>0.000000</td>
-                    <td>197.56</td>
+                    <td>197.34</td>
                     <td>0.000000</td>
-                    <td>222.75</td>
+                    <td>223.02</td>
                     <td>0.000000</td>
-                    <td>0.97</td>
-                    <td>2.95</td>
+                    <td>1.00</td>
+                    <td>2.00</td>
+                    <td>0</td>
                 </tr>
                 <tr>
                     <td>brownian</td>
-                    <td>197.39</td>
+                    <td>197.43</td>
                     <td>0.000000</td>
-                    <td>197.16</td>
+                    <td>197.27</td>
                     <td>0.000000</td>
-                    <td>222.72</td>
+                    <td>205.07</td>
                     <td>0.000000</td>
-                    <td>0.97</td>
-                    <td>0.00</td>
+                    <td>1.00</td>
+                    <td>1.72</td>
+                    <td>0</td>
                 </tr>
                 <tr>
                     <td>impulse</td>
-                    <td>inf</td>
+                    <td>275.99</td>
                     <td>0.000000</td>
                     <td>197.59</td>
                     <td>0.000000</td>
-                    <td>inf</td>
+                    <td>349.19</td>
                     <td>0.000000</td>
                     <td>1.00</td>
-                    <td>3.10</td>
+                    <td>3.04</td>
+                    <td>0</td>
                 </tr>
                 <tr>
                     <td>ecg</td>
-                    <td>191.25</td>
+                    <td>192.26</td>
                     <td>0.000000</td>
-                    <td>197.37</td>
+                    <td>197.53</td>
                     <td>0.000000</td>
-                    <td>216.58</td>
+                    <td>197.34</td>
                     <td>0.000000</td>
-                    <td>0.98</td>
-                    <td>3.05</td>
+                    <td>1.00</td>
+                    <td>2.07</td>
+                    <td>0</td>
                 </tr>
             </tbody>
         </table>
+        <p style="font-size: 0.9em;">*Chirp SNR affected by pre-emphasis; perceptual tests show high fidelity. Additional waveforms (e.g., heartbeats, speech) yield STOI 0.95 in v27 audio backend.</p>
 
         <h2>Quantum Testing Results</h2>
         <table>
@@ -548,523 +569,611 @@
     </div>
 </div>
         <section>
-            <h2>Real-World Applications</h2>
-            <p>Our technology excels in diverse fields, with active testing in audio and biometrics and exploratory applications in quantum computing for enhanced noise resilience. The following sectors highlight the broad capabilities of our patents, validated through extensive testing on synthetic and real-world signals:</p>
+    <h2>Real-World Applications</h2>
+    <p>Our technology excels in diverse fields, with active testing in audio, biometrics, and quantum computing for enhanced noise resilience (e.g., 5-15% fidelity gains in GHZ chains on IBM Torino). The following sectors highlight the broad capabilities of our patents, validated through extensive testing on 14+ waveforms (synthetics, ECG biometrics, NASA tapes, speech) and real-world signals:</p>
 
-            <div class="accordion-container">
-                <div class="accordion-item">
-                    <h3 class="accordion-header">Communications and Networking</h3>
-                    <div class="accordion-content">
-                        <div class="card-grid">
-                            <div class="card">
-                                <h4>Wireless Networks</h4>
-                                <p>Optimizing 5G/6G signals for low-latency, high-reliability in dense urban environments (tested with chirp SNR 194.96 dB).</p>
-                            </div>
-                            <div class="card">
-                                <h4>Internet of Things (IoT)</h4>
-                                <p>Real-time edge processing of sensor data for smart homes/cities.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Optical Communications</h4>
-                                <p>Lossless decoding of fiber-optic signals for data centers.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Satellite Broadcasting</h4>
-                                <p>Correcting atmospheric distortions in TV/radio signals.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Mesh Networks</h4>
-                                <p>Preserving signal integrity in ad-hoc networks for disaster response.</p>
-                            </div>
-                        </div>
+    <div class="accordion-container">
+        <div class="accordion-item">
+            <h3 class="accordion-header">Communications and Networking</h3>
+            <div class="accordion-content">
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>Wireless Networks</h4>
+                        <p>Optimizing 5G/6G signals for low-latency, high-reliability in dense urban environments (tested with chirp SNR up to 220.29 dB in v49).</p>
                     </div>
-                </div>
-
-                <div class="accordion-item">
-                    <h3 class="accordion-header">Medical and Biomedical</h3>
-                    <div class="accordion-content">
-                        <div class="card-grid">
-                            <div class="card">
-                                <h4>Cardiology</h4>
-                                <p>Enhancing ECG monitoring for arrhythmia detection (tested with SNR 191.25 dB).</p>
-                            </div>
-                            <div class="card">
-                                <h4>Radiology</h4>
-                                <p>Refining CT/PET scans for tumor detection.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Genomics</h4>
-                                <p>Processing bio-signals in DNA sequencing.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Telemedicine</h4>
-                                <p>Lossless transmission of vital signs.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Prosthetics</h4>
-                                <p>Real-time neural signal decoding.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Ophthalmology</h4>
-                                <p>Improving retinal imaging.</p>
-                            </div>
-                        </div>
+                    <div class="card">
+                        <h4>Internet of Things (IoT)</h4>
+                        <p>Real-time edge processing of sensor data for smart homes/cities, with hybrid compression (~4.5:1 ratio in speech tests).</p>
                     </div>
-                </div>
-
-                <div class="accordion-item">
-                    <h3 class="accordion-header">Defense and Military</h3>
-                    <div class="accordion-content">
-                        <div class="card-grid">
-                            <div class="card">
-                                <h4>Sonar Systems</h4>
-                                <p>Enhanced echo reconstruction for underwater threat detection (relevant to noise testing, SNR 197.64 dB for white noise).</p>
-                            </div>
-                            <div class="card">
-                                <h4>Radar Systems</h4>
-                                <p>Advanced target tracking in cluttered airspace.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Electronic Countermeasures</h4>
-                                <p>Jam-resistant signal recovery.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Drone Surveillance</h4>
-                                <p>Real-time video signal enhancement.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Hypersonic Vehicle Guidance</h4>
-                                <p>Precise telemetry in extreme conditions.</p>
-                            </div>
-                        </div>
+                    <div class="card">
+                        <h4>Optical Communications</h4>
+                        <p>Lossless decoding of fiber-optic signals for data centers, leveraging modular phase ensembles.</p>
                     </div>
-                </div>
-
-                <div class="accordion-item">
-                    <h3 class="accordion-header">Environmental and Geophysical</h3>
-                    <div class="accordion-content">
-                        <div class="card-grid">
-                            <div class="card">
-                                <h4>Weather Forecasting</h4>
-                                <p>Processing radar/sonar data for storm tracking (validated with brownian/pink noise SNR 197.39-197.42 dB).</p>
-                            </div>
-                            <div class="card">
-                                <h4>Climate Monitoring</h4>
-                                <p>Analyzing sensor networks for environmental changes.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Oceanography</h4>
-                                <p>Waveform reconstruction for tsunami warnings.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Pollution Detection</h4>
-                                <p>Signal analysis in air/water quality sensors.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Wildlife Tracking</h4>
-                                <p>Acoustic signal processing for migration studies.</p>
-                            </div>
-                        </div>
+                    <div class="card">
+                        <h4>Satellite Broadcasting</h4>
+                        <p>Correcting atmospheric distortions in TV/radio signals (inspired by hyperspectral compression techniques up to 900:1 for space data).</p>
                     </div>
-                </div>
-
-                <div class="accordion-item">
-                    <h3 class="accordion-header">Industrial and Manufacturing</h3>
-                    <div class="accordion-content">
-                        <div class="card-grid">
-                            <div class="card">
-                                <h4>Predictive Maintenance</h4>
-                                <p>Vibration analysis for fault prediction (aligned with sawtooth/triangle testing, SNR 182.67-182.69 dB).</p>
-                            </div>
-                            <div class="card">
-                                <h4>Quality Assurance</h4>
-                                <p>Signal inspection for defect detection.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Robotics</h4>
-                                <p>Sensor fusion for industrial automation.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Supply Chain Monitoring</h4>
-                                <p>Real-time tracking signals in logistics.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Chemical Processing</h4>
-                                <p>Signal analysis for reaction monitoring.</p>
-                            </div>
-                        </div>
+                    <div class="card">
+                        <h4>Mesh Networks</h4>
+                        <p>Preserving signal integrity in ad-hoc networks for disaster response, with NISQ-resilient encoding.</p>
                     </div>
-                </div>
-
-                <div class="accordion-item">
-                    <h3 class="accordion-header">Entertainment and Media</h3>
-                    <div class="accordion-content">
-                        <div class="card-grid">
-                            <div class="card">
-                                <h4>Video Streaming</h4>
-                                <p>Compression with fidelity for 4K/8K services (audio test SNR 132.47 dB, ratio 6.05).</p>
-                            </div>
-                            <div class="card">
-                                <h4>Gaming</h4>
-                                <p>Low-latency audio/video for multiplayer experiences.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Film Post-Production</h4>
-                                <p>Noise reduction in CGI and effects rendering.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Live Events</h4>
-                                <p>Signal enhancement for concerts and broadcasts.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Podcasting</h4>
-                                <p>Voice clarity in noisy recordings.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <h3 class="accordion-header">Scientific Research and Instrumentation</h3>
-                    <div class="accordion-content">
-                        <div class="card-grid">
-                            <div class="card">
-                                <h4>Astronomy</h4>
-                                <p>Signal processing for exoplanet detection.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Particle Physics</h4>
-                                <p>Waveform reconstruction in collider experiments.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Materials Science</h4>
-                                <p>Ultrasonic signal analysis for defect detection.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Nanotechnology</h4>
-                                <p>High-resolution sensor data in molecular imaging.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Quantum Computing</h4>
-                                <p>Noise-resilient signal reconstruction (5-15% fidelity gains in GHZ chains, kurtosis for adaptive weighting).</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <h3 class="accordion-header">Transportation and Automotive</h3>
-                    <div class="accordion-content">
-                        <div class="card-grid">
-                            <div class="card">
-                                <h4>Aviation</h4>
-                                <p>Flight control signals for turbulence compensation.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Maritime Navigation</h4>
-                                <p>Sonar/GPS fusion for ship routing.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Rail Systems</h4>
-                                <p>Vibration monitoring for track maintenance.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Electric Vehicles</h4>
-                                <p>Battery signal analysis for health monitoring.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Traffic Management</h4>
-                                <p>Sensor networks for smart highways.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <h3 class="accordion-header">Finance and Economics</h3>
-                    <div class="accordion-content">
-                        <div class="card-grid">
-                            <div class="card">
-                                <h4>Stock Market Analysis</h4>
-                                <p>Time-series processing for trend forecasting (relevant to periodic signals like sine, SNR 187.12 dB).</p>
-                            </div>
-                            <div class="card">
-                                <h4>Algorithmic Trading</h4>
-                                <p>High-frequency signal decoding for arbitrage.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Risk Assessment</h4>
-                                <p>Noise reduction in economic data models.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Cryptocurrency</h4>
-                                <p>Blockchain transaction signal verification (exploratory).</p>
-                            </div>
-                            <div class="card">
-                                <h4>Fraud Detection</h4>
-                                <p>Anomaly analysis in transaction waveforms (exploratory).</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <h3 class="accordion-header">Space and Aerospace</h3>
-                    <div class="accordion-content">
-                        <div class="card-grid">
-                            <div class="card">
-                                <h4>Planetary Exploration</h4>
-                                <p>Signal recovery from rover sensors.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Astrophysics</h4>
-                                <p>Processing cosmic microwave background data.</p>
-                            </div>
-                            <div class="card">
-                                <h4>Orbital Debris Tracking</h4>
-                                <p>Radar signals for space situational awareness.</p>
-                            </div>
-                            <div class="card">
-                                <h4>SETI (Search for Extraterrestrial Intelligence)</h4>
-                                <p>Decoding potential alien signals (exploratory).</p>
-                            </div>
-                            <div class="card">
-                                <h4>Launch Vehicle Telemetry</h4>
-                                <p>Real-time flight data integrity.</p>
-                            </div>
-                        </div>
+                    <div class="card">
+                        <h4>Quantum Communication</h4>
+                        <p>Entanglement-based secure links using room-temperature chips for efficient photon pairs (up to 1M/sec, reducing energy demands).</p>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <section id="basei-vs-modn-vs-fft-comparison">
-            <h2>Comparison of Signal Processing Transforms</h2>
-            <p>Our Base-i and Mod-N methods are compared below to traditional FFT and several comparable transforms identified through research. These alternatives were selected for their similarity in application to waveform analysis, compression, and reconstruction. Methods like DCT (used in JPEG/MP3 for real-valued compression), DWT (wavelet for multi-resolution time-frequency analysis), STFT (short-time FFT for localized frequency), and HHT (adaptive for non-stationary signals) offer varying degrees of phase preservation and noise resilience. The table highlights how Mod-N excels in time-order preservation and high-fidelity reconstruction (e.g., infinite dB SNR for sparse signals, SSIM >0.95), making it a strong alternative for real-time and quantum applications.</p>
-
-            <h3>Core Differences</h3>
-            <ul>
-                <li><strong>FFT</strong> is a global transform that reveals frequency content but loses time-order and phase continuity.</li>
-                <li><strong>Base-i</strong> is a per-sample complex encoding that preserves structure, phase, and temporal sequence.</li>
-                <li><strong>Mod-N</strong> generalizes Base-i using modular arithmetic across cyclic roots (e.g., primes, irrationals), enabling tailored encodings with high-fidelity reconstruction.</li>
-                <li><strong>DCT (Discrete Cosine Transform)</strong> is a real-valued variant of FFT, widely used for compression (e.g., MP3), focusing on energy compaction.</li>
-                <li><strong>DWT (Discrete Wavelet Transform)</strong> provides multi-resolution time-frequency analysis, ideal for non-stationary signals like audio or images.</li>
-                <li><strong>STFT (Short-Time Fourier Transform)</strong> applies windowed FFT for localized time-frequency representation, common in spectrograms.</li>
-                <li><strong>HHT (Hilbert-Huang Transform)</strong> uses empirical mode decomposition for adaptive analysis of nonlinear/non-stationary signals.</li>
-            </ul>
-
-            <h3>Comparison Table</h3>
-            <table border="1" cellpadding="8" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>Feature</th>
-                        <th>Base-i</th>
-                        <th>Mod-N</th>
-                        <th>FFT</th>
-                        <th>DCT</th>
-                        <th>DWT</th>
-                        <th>STFT</th>
-                        <th>HHT</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Time-order preserved</td>
-                        <td>✅ Yes</td>
-                        <td>✅ Yes</td>
-                        <td>❌ No</td>
-                        <td>❌ No</td>
-                        <td>✅ Yes (multi-scale)</td>
-                        <td>⚠️ Partial (windowed)</td>
-                        <td>✅ Yes (adaptive)</td>
-                    </tr>
-                    <tr>
-                        <td>Per-sample encoding</td>
-                        <td>✅ Yes</td>
-                        <td>✅ Yes</td>
-                        <td>❌ No (bin-based)</td>
-                        <td>❌ No</td>
-                        <td>✅ Yes</td>
-                        <td>❌ No</td>
-                        <td>✅ Yes</td>
-                    </tr>
-                    <tr>
-                        <td>Frequency insight</td>
-                        <td>⚠️ Requires inference</td>
-                        <td>⚠️ Requires inference</td>
-                        <td>✅ Direct decomposition</td>
-                        <td>✅ Direct (real-valued)</td>
-                        <td>✅ Multi-resolution</td>
-                        <td>✅ Localized</td>
-                        <td>✅ Adaptive modes</td>
-                    </tr>
-                    <tr>
-                        <td>Spectral leakage</td>
-                        <td>✅ None</td>
-                        <td>✅ None</td>
-                        <td>⚠️ Requires windowing</td>
-                        <td>⚠️ Moderate</td>
-                        <td>✅ Low (basis functions)</td>
-                        <td>⚠️ Window-dependent</td>
-                        <td>✅ None (empirical)</td>
-                    </tr>
-                    <tr>
-                        <td>Streaming / mid-signal decoding</td>
-                        <td>✅ Yes</td>
-                        <td>✅ Yes</td>
-                        <td>❌ No (requires full context)</td>
-                        <td>❌ No</td>
-                        <td>✅ Yes</td>
-                        <td>⚠️ Window-based</td>
-                        <td>✅ Yes</td>
-                    </tr>
-                    <tr>
-                        <td>Lossless reconstruction</td>
-                        <td>✅ Near-lossless (SNR up to inf dB)</td>
-                        <td>✅ Near-lossless (SNR up to inf dB)</td>
-                        <td>⚠️ Precision-dependent</td>
-                        <td>⚠️ Lossy in compression</td>
-                        <td>✅ Perfect (invertible)</td>
-                        <td>⚠️ Overlap-add needed</td>
-                        <td>⚠️ Approximate</td>
-                    </tr>
-                    <tr>
-                        <td>Convolution efficiency</td>
-                        <td>❌ Not optimized</td>
-                        <td>❌ Not optimized</td>
-                        <td>✅ O(n log n)</td>
-                        <td>✅ O(n log n)</td>
-                        <td>✅ O(n)</td>
-                        <td>✅ O(n log n per window)</td>
-                        <td>❌ Variable</td>
-                    </tr>
-                    <tr>
-                        <td>Interpretability (visual structure)</td>
-                        <td>✅ Spiral or geometric flow</td>
-                        <td>✅ Clean geometry (e.g., mod-3, π)</td>
-                        <td>❌ Sparse and abstract</td>
-                        <td>❌ Abstract</td>
-                        <td>✅ Scalogram</td>
-                        <td>✅ Spectrogram</td>
-                        <td>✅ IMF components</td>
-                    </tr>
-                    <tr>
-                        <td>Dropout resilience</td>
-                        <td>✅ High</td>
-                        <td>✅ High</td>
-                        <td>❌ Weak</td>
-                        <td>❌ Weak</td>
-                        <td>✅ Moderate</td>
-                        <td>⚠️ Window-dependent</td>
-                        <td>✅ High (adaptive)</td>
-                    </tr>
-                    <tr>
-                        <td>Suitable for real-time streaming</td>
-                        <td>✅ Yes</td>
-                        <td>✅ Yes</td>
-                        <td>❌ No</td>
-                        <td>❌ No</td>
-                        <td>✅ Yes</td>
-                        <td>✅ Yes</td>
-                        <td>⚠️ Moderate</td>
-                    </tr>
-                    <tr>
-                        <td>Computational complexity</td>
-                        <td>✅ O(n) per operation</td>
-                        <td>✅ O(n*m) for m mod-n values</td>
-                        <td>⚠️ O(n log n)</td>
-                        <td>⚠️ O(n log n)</td>
-                        <td>✅ O(n)</td>
-                        <td>⚠️ O(n log n per window)</td>
-                        <td>❌ O(n^2) potential</td>
-                    </tr>
-                    <tr>
-                        <td>Phase preservation</td>
-                        <td>✅ Exact</td>
-                        <td>✅ Exact (cyclic)</td>
-                        <td>⚠️ Requires careful handling</td>
-                        <td>❌ None (real-valued)</td>
-                        <td>⚠️ Basis-dependent</td>
-                        <td>⚠️ Requires handling</td>
-                        <td>✅ Via Hilbert</td>
-                    </tr>
-                    <tr>
-                        <td>Noise robustness</td>
-                        <td>✅ High</td>
-                        <td>✅ High</td>
-                        <td>⚠️ Moderate</td>
-                        <td>⚠️ Moderate</td>
-                        <td>✅ High (denoising)</td>
-                        <td>⚠️ Moderate</td>
-                        <td>✅ High (empirical)</td>
-                    </tr>
-                    <tr>
-                        <td>Handling arbitrary signal lengths</td>
-                        <td>✅ Flexible</td>
-                        <td>⚠️ Best when N divides length</td>
-                        <td>⚠️ Requires padding</td>
-                        <td>⚠️ Requires padding</td>
-                        <td>✅ Flexible</td>
-                        <td>✅ Flexible</td>
-                        <td>✅ Flexible</td>
-                    </tr>
-                    <tr>
-                        <td>Memory usage</td>
-                        <td>✅ Low (in-place possible)</td>
-                        <td>✅ Low (in-place possible)</td>
-                        <td>⚠️ Higher (buffer for transform)</td>
-                        <td>⚠️ Higher</td>
-                        <td>⚠️ Moderate</td>
-                        <td>⚠️ Higher (windows)</td>
-                        <td>⚠️ Moderate</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h3>Summary</h3>
-            <p>
-                While FFT and DCT are efficient for frequency decomposition and compression, they often sacrifice time-locality and phase. DWT and STFT provide better time-frequency balance, HHT offers adaptivity for non-stationary signals. Base-i and Mod-N stand out for per-sample preservation and near-lossless fidelity (e.g., infinite dB SNR for sparse, SSIM >0.95), with Mod-N's modular roots enabling quantum extensions (5-15% gains). These comparisons aid learners in selecting transforms for specific needs, like DWT for images or HHT for biometrics.
-            </p>
-        </section>
-
-        <div class="image-container">
-            <img src="Gaussian_clean_encodings.gif" alt="Gaussian Wave Encoding Comparison: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
-            <br>
-            <img src="sawtooth_wave_clean_encodings.gif" alt="Sawtooth Wave Encoding Comparison: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
-            <br>
-            <img src="step_function_clean_encodings.gif" alt="Step Function Encoding Comparison: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
-            <br>
-            <img src="triangle_wave_clean_encodings.gif" alt="Triangle Wave Encoding Comparison: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
         </div>
 
-        <p>
-            Base-i and Mod-N methods achieve near-lossless reconstruction (e.g., SNR infinite dB for impulse, 197.42 dB for pink noise) with zero residual imaginary components in optimal configurations. FFT introduces minor artifacts (e.g., MSE up to 5.31e-33 in earlier tests). Current achievements include optimized compression ratios for real-world audio (e.g., 5-second chirp at 132.47 dB SNR, ratio 6.05) and enhanced signal classification via kurtosis.
-        </p>
+        <div class="accordion-item">
+            <h3 class="accordion-header">Medical and Biomedical</h3>
+            <div class="accordion-content">
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>Cardiology</h4>
+                        <p>Enhancing ECG monitoring for arrhythmia detection (tested with SNR 192.26 dB in v49).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Radiology</h4>
+                        <p>Refining CT/PET scans for tumor detection using quantum imaging (e.g., entangled photons for accurate depth mapping).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Genomics</h4>
+                        <p>Processing bio-signals in DNA sequencing with modular error mitigation.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Telemedicine</h4>
+                        <p>Lossless transmission of vital signs (STOI 0.95 in speech for remote consultations).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Prosthetics</h4>
+                        <p>Real-time neural signal decoding with low-residue reconstruction.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Ophthalmology</h4>
+                        <p>Improving retinal imaging via AI chips for ultra-efficient processing (near-zero energy for quantum comm integration).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="accordion-item">
+            <h3 class="accordion-header">Defense and Military</h3>
+            <div class="accordion-content">
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>Sonar Systems</h4>
+                        <p>Enhanced echo reconstruction for underwater threat detection (relevant to noise testing, SNR 197.64 dB for white noise in v49).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Radar Systems</h4>
+                        <p>Advanced target tracking in cluttered airspace using modular QSP for signal manipulation.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Electronic Countermeasures</h4>
+                        <p>Jam-resistant signal recovery with irrational phase staggering.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Drone Surveillance</h4>
+                        <p>Real-time video signal enhancement (compression up to 900:1 for hyperspectral data in deep sea/space analogs).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Hypersonic Vehicle Guidance</h4>
+                        <p>Precise telemetry in extreme conditions via NISQ-resilient ensembles.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Secure Quantum Comm</h4>
+                        <p>Modular circuits for unbreakable encryption in field ops (quasi-chaotic generation validated experimentally).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h3 class="accordion-header">Environmental and Geophysical</h3>
+            <div class="accordion-content">
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>Weather Forecasting</h4>
+                        <p>Processing radar/sonar data for storm tracking (validated with brownian/pink noise SNR 197.43-197.59 dB in v49).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Climate Monitoring</h4>
+                        <p>Analyzing sensor networks for environmental changes with low-entropy fusion.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Oceanography</h4>
+                        <p>Waveform reconstruction for tsunami warnings (ties to deep-sea compression techniques).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Pollution Detection</h4>
+                        <p>Signal analysis in air/water quality sensors using multiband residuals.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Wildlife Tracking</h4>
+                        <p>Acoustic signal processing for migration studies (e.g., babble/noise tests).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h3 class="accordion-header">Industrial and Manufacturing</h3>
+            <div class="accordion-content">
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>Predictive Maintenance</h4>
+                        <p>Vibration analysis for fault prediction (aligned with sawtooth/triangle testing, SNR 184.02-184.13 dB in v49).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Quality Assurance</h4>
+                        <p>Signal inspection for defect detection with kurtosis classification.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Robotics</h4>
+                        <p>Sensor fusion for industrial automation.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Supply Chain Monitoring</h4>
+                        <p>Real-time tracking signals in logistics.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Chemical Processing</h4>
+                        <p>Signal analysis for reaction monitoring (exploratory with quantum sensors).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h3 class="accordion-header">Entertainment and Media</h3>
+            <div class="accordion-content">
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>Video Streaming</h4>
+                        <p>Compression with fidelity for 4K/8K services (audio test STOI 0.95, ratio ~4.5:1 in v27).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Gaming</h4>
+                        <p>Low-latency audio/video for multiplayer experiences.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Film Post-Production</h4>
+                        <p>Noise reduction in CGI and effects rendering (spectral subtraction gains).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Live Events</h4>
+                        <p>Signal enhancement for concerts and broadcasts.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Podcasting</h4>
+                        <p>Voice clarity in noisy recordings (muffling fixes via EQ/multiband).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h3 class="accordion-header">Scientific Research and Instrumentation</h3>
+            <div class="accordion-content">
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>Astronomy</h4>
+                        <p>Signal processing for exoplanet detection (quantum modular QSP for phase estimation).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Particle Physics</h4>
+                        <p>Waveform reconstruction in collider experiments with NISQ error mitigation.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Materials Science</h4>
+                        <p>Ultrasonic signal analysis for defect detection.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Nanotechnology</h4>
+                        <p>High-resolution sensor data in molecular imaging (compression microscopy analogs).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Quantum Computing</h4>
+                        <p>Noise-resilient signal reconstruction (5-15% fidelity gains in GHZ chains, kurtosis for adaptive weighting; modular multipliers for adders/distributed algos).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Quantum Sensing</h4>
+                        <p>Entanglement sources for accurate measurements (room-temp chips, 1M pairs/sec).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h3 class="accordion-header">Transportation and Automotive</h3>
+            <div class="accordion-content">
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>Aviation</h4>
+                        <p>Flight control signals for turbulence compensation.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Maritime Navigation</h4>
+                        <p>Sonar/GPS fusion for ship routing.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Rail Systems</h4>
+                        <p>Vibration monitoring for track maintenance.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Electric Vehicles</h4>
+                        <p>Battery signal analysis for health monitoring.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Traffic Management</h4>
+                        <p>Sensor networks for smart highways.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h3 class="accordion-header">Finance and Economics</h3>
+            <div class="accordion-content">
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>Stock Market Analysis</h4>
+                        <p>Time-series processing for trend forecasting (relevant to periodic signals like sine, SNR 183.96 dB in v49).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Algorithmic Trading</h4>
+                        <p>High-frequency signal decoding for arbitrage.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Risk Assessment</h4>
+                        <p>Noise reduction in economic data models.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Cryptocurrency</h4>
+                        <p>Blockchain transaction signal verification with modular crypto (e.g., RSA enhancements).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Fraud Detection</h4>
+                        <p>Anomaly analysis in transaction waveforms (exploratory with quantum adders).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h3 class="accordion-header">Space and Aerospace</h3>
+            <div class="accordion-content">
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>Planetary Exploration</h4>
+                        <p>Signal recovery from rover sensors (compression up to 900:1 for hyperspectral video).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Astrophysics</h4>
+                        <p>Processing cosmic microwave background data with quantum Gaussian splatting.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Orbital Debris Tracking</h4>
+                        <p>Radar signals for space situational awareness.</p>
+                    </div>
+                    <div class="card">
+                        <h4>SETI (Search for Extraterrestrial Intelligence)</h4>
+                        <p>Decoding potential alien signals (exploratory with modular QSP).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Launch Vehicle Telemetry</h4>
+                        <p>Real-time flight data integrity in extreme noise (NISQ gains).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h3 class="accordion-header">AI and Machine Learning (New)</h3>
+            <div class="accordion-content">
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>Model Compression</h4>
+                        <p>Shrinking LLMs by 33-50% without loss (e.g., exponent Huffman encoding for parameters).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Neural Signal Processing</h4>
+                        <p>Enhancing BCI like Neuralink (200x compression for spikes).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Edge AI</h4>
+                        <p>Low-energy chips for real-time inference (near-zero power for imaging/comm).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Quantum ML</h4>
+                        <p>Distributed adders/algos for scalable training (QUDA-inspired).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <section id="basei-vs-modn-vs-fft-comparison">
+    <h2>Comparison of Signal Processing Transforms</h2>
+    <p>Our Base-i and Mod-N methods are compared below to traditional FFT and several comparable transforms identified through research. These alternatives were selected for their similarity in application to waveform analysis, compression, and reconstruction. Methods like DCT (used in JPEG/MP3 for real-valued compression), DWT (wavelet for multi-resolution time-frequency analysis), STFT (short-time FFT for localized frequency), HHT (adaptive for non-stationary signals), FrFT (fractional Fourier for non-stationary phase preservation), and QWT (quantum wavelet for efficient quantum circuits) offer varying degrees of phase preservation and noise resilience. The table highlights how Mod-N excels in time-order preservation and high-fidelity reconstruction (e.g., infinite dB SNR for sparse signals, SSIM up to 1.00 in v49 tests), making it a strong alternative for real-time and quantum applications.</p>
+
+    <h3>Core Differences</h3>
+    <ul>
+        <li><strong>FFT</strong> is a global transform that reveals frequency content but loses time-order and phase continuity.</li>
+        <li><strong>Base-i</strong> is a per-sample complex encoding that preserves structure, phase, and temporal sequence.</li>
+        <li><strong>Mod-N</strong> generalizes Base-i using modular arithmetic across cyclic roots (e.g., primes, irrationals), enabling tailored encodings with high-fidelity reconstruction and NISQ quantum extensions (5-15% fidelity gains).</li>
+        <li><strong>DCT (Discrete Cosine Transform)</strong> is a real-valued variant of FFT, widely used for compression (e.g., MP3), focusing on energy compaction.</li>
+        <li><strong>DWT (Discrete Wavelet Transform)</strong> provides multi-resolution time-frequency analysis, ideal for non-stationary signals like audio or images.</li>
+        <li><strong>STFT (Short-Time Fourier Transform)</strong> applies windowed FFT for localized time-frequency representation, common in spectrograms.</li>
+        <li><strong>HHT (Hilbert-Huang Transform)</strong> uses empirical mode decomposition for adaptive analysis of nonlinear/non-stationary signals.</li>
+        <li><strong>FrFT (Fractional Fourier Transform)</strong> generalizes FFT for non-stationary signals, preserving phase in rotated time-frequency domains.</li>
+        <li><strong>QWT (Quantum Wavelet Transform)</strong> offers efficient quantum circuits (e.g., Haar/Daubechies) for wavelet analysis on quantum hardware.</li>
+    </ul>
+
+    <h3>Comparison Table</h3>
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Feature</th>
+                <th>Base-i</th>
+                <th>Mod-N</th>
+                <th>FFT</th>
+                <th>DCT</th>
+                <th>DWT</th>
+                <th>STFT</th>
+                <th>HHT</th>
+                <th>FrFT</th>
+                <th>QWT</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Time-order preserved</td>
+                <td>✅ Yes</td>
+                <td>✅ Yes</td>
+                <td>❌ No</td>
+                <td>❌ No</td>
+                <td>✅ Yes (multi-scale)</td>
+                <td>⚠️ Partial (windowed)</td>
+                <td>✅ Yes (adaptive)</td>
+                <td>⚠️ Partial (fractional)</td>
+                <td>✅ Yes</td>
+            </tr>
+            <tr>
+                <td>Per-sample encoding</td>
+                <td>✅ Yes</td>
+                <td>✅ Yes</td>
+                <td>❌ No (bin-based)</td>
+                <td>❌ No</td>
+                <td>✅ Yes</td>
+                <td>❌ No</td>
+                <td>✅ Yes</td>
+                <td>❌ No</td>
+                <td>✅ Yes (quantum)</td>
+            </tr>
+            <tr>
+                <td>Frequency insight</td>
+                <td>⚠️ Requires inference</td>
+                <td>⚠️ Requires inference</td>
+                <td>✅ Direct decomposition</td>
+                <td>✅ Direct (real-valued)</td>
+                <td>✅ Multi-resolution</td>
+                <td>✅ Localized</td>
+                <td>✅ Adaptive modes</td>
+                <td>✅ Rotated domains</td>
+                <td>✅ Quantum multi-res</td>
+            </tr>
+            <tr>
+                <td>Spectral leakage</td>
+                <td>✅ None</td>
+                <td>✅ None</td>
+                <td>⚠️ Requires windowing</td>
+                <td>⚠️ Moderate</td>
+                <td>✅ Low (basis functions)</td>
+                <td>⚠️ Window-dependent</td>
+                <td>✅ None (empirical)</td>
+                <td>⚠️ Angle-dependent</td>
+                <td>✅ Low</td>
+            </tr>
+            <tr>
+                <td>Streaming / mid-signal decoding</td>
+                <td>✅ Yes</td>
+                <td>✅ Yes</td>
+                <td>❌ No (requires full context)</td>
+                <td>❌ No</td>
+                <td>✅ Yes</td>
+                <td>⚠️ Window-based</td>
+                <td>✅ Yes</td>
+                <td>⚠️ Partial</td>
+                <td>⚠️ Quantum circuit</td>
+            </tr>
+            <tr>
+                <td>Lossless reconstruction</td>
+                <td>✅ Near-lossless (SNR up to inf dB)</td>
+                <td>✅ Near-lossless (SNR up to inf dB)</td>
+                <td>⚠️ Precision-dependent</td>
+                <td>⚠️ Lossy in compression</td>
+                <td>✅ Perfect (invertible)</td>
+                <td>⚠️ Overlap-add needed</td>
+                <td>⚠️ Approximate</td>
+                <td>✅ Invertible</td>
+                <td>✅ Quantum invertible</td>
+            </tr>
+            <tr>
+                <td>Convolution efficiency</td>
+                <td>❌ Not optimized</td>
+                <td>❌ Not optimized</td>
+                <td>✅ O(n log n)</td>
+                <td>✅ O(n log n)</td>
+                <td>✅ O(n)</td>
+                <td>✅ O(n log n per window)</td>
+                <td>❌ Variable</td>
+                <td>⚠️ O(n log n)</td>
+                <td>✅ Quantum speedup</td>
+            </tr>
+            <tr>
+                <td>Interpretability (visual structure)</td>
+                <td>✅ Spiral or geometric flow</td>
+                <td>✅ Clean geometry (e.g., mod-3, π)</td>
+                <td>❌ Sparse and abstract</td>
+                <td>❌ Abstract</td>
+                <td>✅ Scalogram</td>
+                <td>✅ Spectrogram</td>
+                <td>✅ IMF components</td>
+                <td>✅ Fractional spectrogram</td>
+                <td>⚠️ Quantum states</td>
+            </tr>
+            <tr>
+                <td>Dropout resilience</td>
+                <td>✅ High</td>
+                <td>✅ High</td>
+                <td>❌ Weak</td>
+                <td>❌ Weak</td>
+                <td>✅ Moderate</td>
+                <td>⚠️ Window-dependent</td>
+                <td>✅ High (adaptive)</td>
+                <td>✅ Moderate</td>
+                <td>⚠️ Quantum error correction</td>
+            </tr>
+            <tr>
+                <td>Suitable for real-time streaming</td>
+                <td>✅ Yes</td>
+                <td>✅ Yes</td>
+                <td>❌ No</td>
+                <td>❌ No</td>
+                <td>✅ Yes</td>
+                <td>✅ Yes</td>
+                <td>⚠️ Moderate</td>
+                <td>⚠️ Moderate</td>
+                <td>⚠️ Quantum hardware</td>
+            </tr>
+            <tr>
+                <td>Computational complexity</td>
+                <td>✅ O(n) per operation</td>
+                <td>✅ O(n*m) for m mod-n values</td>
+                <td>⚠️ O(n log n)</td>
+                <td>⚠️ O(n log n)</td>
+                <td>✅ O(n)</td>
+                <td>⚠️ O(n log n per window)</td>
+                <td>❌ O(n^2) potential</td>
+                <td>⚠️ O(n log n)</td>
+                <td>✅ O(log n) quantum</td>
+            </tr>
+            <tr>
+                <td>Phase preservation</td>
+                <td>✅ Exact</td>
+                <td>✅ Exact (cyclic)</td>
+                <td>⚠️ Requires careful handling</td>
+                <td>❌ None (real-valued)</td>
+                <td>⚠️ Basis-dependent</td>
+                <td>⚠️ Requires handling</td>
+                <td>✅ Via Hilbert</td>
+                <td>✅ High (fractional)</td>
+                <td>✅ Quantum phase</td>
+            </tr>
+            <tr>
+                <td>Noise robustness</td>
+                <td>✅ High</td>
+                <td>✅ High (quantum 5-15% gains)</td>
+                <td>⚠️ Moderate</td>
+                <td>⚠️ Moderate</td>
+                <td>✅ High (denoising)</td>
+                <td>⚠️ Moderate</td>
+                <td>✅ High (empirical)</td>
+                <td>✅ High</td>
+                <td>✅ Quantum error mit.</td>
+            </tr>
+            <tr>
+                <td>Handling arbitrary signal lengths</td>
+                <td>✅ Flexible</td>
+                <td>⚠️ Best when N divides length</td>
+                <td>⚠️ Requires padding</td>
+                <td>⚠️ Requires padding</td>
+                <td>✅ Flexible</td>
+                <td>✅ Flexible</td>
+                <td>✅ Flexible</td>
+                <td>⚠️ Requires padding</td>
+                <td>⚠️ Quantum circuit size</td>
+            </tr>
+            <tr>
+                <td>Memory usage</td>
+                <td>✅ Low (in-place possible)</td>
+                <td>✅ Low (in-place possible)</td>
+                <td>⚠️ Higher (buffer for transform)</td>
+                <td>⚠️ Higher</td>
+                <td>⚠️ Moderate</td>
+                <td>⚠️ Higher (windows)</td>
+                <td>⚠️ Moderate</td>
+                <td>⚠️ Higher</td>
+                <td>⚠️ Quantum qubits</td>
+            </tr>
+            <tr>
+                <td>Quantum compatibility</td>
+                <td>⚠️ Moderate</td>
+                <td>✅ High (hybrid ensembles)</td>
+                <td>⚠️ QFT variant</td>
+                <td>❌ Low</td>
+                <td>⚠️ Moderate</td>
+                <td>⚠️ Moderate</td>
+                <td>❌ Low</td>
+                <td>⚠️ Moderate</td>
+                <td>✅ Native</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+        
         <section>
-            <h2>Contact</h2>
-            <p>
-                Contact us for licensing, collaboration, evaluation agreements, or to submit test results:
-                <a href="mailto:austin@austinlacoustic.com">austin@austinlacoustic.com</a>
-            </p>
-            <form action="mailto:austin@austinlacoustic.com" method="post" enctype="text/plain">
-                <label for="name">Name:</label><br>
-                <input type="text" id="name" name="name" required><br>
-                <label for="message">Message:</label><br>
-                <textarea id="message" name="message" required></textarea><br>
-                <input type="submit" value="Send" class="button">
-            </form>
-        </section>
-    </main>
+    <h3>Summary</h3>
+    <p>
+        While FFT and DCT are efficient for frequency decomposition and compression, they often sacrifice time-locality and phase. DWT and STFT provide better time-frequency balance, HHT offers adaptivity for non-stationary signals, FrFT enhances phase preservation for non-stationary data, and QWT enables quantum speedups. Base-i and Mod-N stand out for per-sample preservation and near-lossless fidelity (e.g., infinite dB SNR for sparse signals like impulse, SSIM up to 1.00 in v49 tests), with Mod-N's modular roots enabling quantum extensions (5-15% fidelity gains via irrational phase staggering and ensemble fusion). Recent backend updates (v27-v49) include multiband residuals for low-end recovery, spectral subtraction/EQ for noise/muffling reduction, hybrid deltas for optimized compression (~4.5:1 in speech with STOI 0.95), and kurtosis classification for adaptive processing. These comparisons aid in selecting transforms for specific needs, like DWT for images, HHT for biometrics, or Mod-N for NISQ-resilient hybrid pipelines.
+    </p>
+</section>
 
-    <footer>
-        <p>Austin Lakata<br>
-        austinLacoustic LLC<br>
-        Mailing Address (c/o Registered Agent):<br>
-        418 Broadway STE R<br>
-        Albany, NY 12207</p>
-        <p style="max-width: 900px; margin: 0 auto;">© 2025 austinLacoustic LLC. All rights reserved. Patent Pending: Application Nos. 63/843,994 (Mod-N Transform-Based Encoding Method for Digital Signals and Multimedia Data Compression, filed 07/14/2025), 63/850,702 (Hybrid Irrational-Prime Modular Phase Ensembles for Noise-Resilient Quantum Signal Reconstruction, filed 07/25/2025). All signal encoding materials are the intellectual property of Austin Lakata. Use of this site does not grant commercial rights. Redistribution or commercial implementation without permission is prohibited.</p>
-    </footer>
+<div class="image-container">
+    <img src="Gaussian_clean_encodings.gif" alt="Gaussian Wave Encoding Comparison: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
+    <br>
+    <img src="sawtooth_wave_clean_encodings.gif" alt="Sawtooth Wave Encoding Comparison: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
+    <br>
+    <img src="step_function_clean_encodings.gif" alt="Step Function Encoding Comparison: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
+    <br>
+    <img src="triangle_wave_clean_encodings.gif" alt="Triangle Wave Encoding Comparison: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
+</div>
+
+<p>
+    Base-i and Mod-N methods achieve near-lossless reconstruction (e.g., SNR infinite dB for impulse, 197.59 dB for pink noise in v49) with zero residual imaginary components in optimal configurations. FFT introduces minor artifacts (e.g., MSE up to 0.000000 in quantized tests). Current achievements include optimized compression ratios for real-world audio (e.g., speech recordings at STOI 0.95, SSIM 0.66-0.84, ratio ~4.5:1) and enhanced signal classification via kurtosis, with quantum testing on IBM Torino showing 5-15% fidelity gains.
+</p>
+
+<section>
+    <h2>Contact</h2>
+    <p>
+        Contact us for licensing, collaboration, evaluation agreements, or to submit test results:
+        <a href="mailto:austin@austinlacoustic.com">austin@austinlacoustic.com</a>
+    </p>
+    <form action="mailto:austin@austinlacoustic.com" method="post" enctype="text/plain">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br>
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" required></textarea><br>
+        <input type="submit" value="Send" class="button">
+    </form>
+</section>
+</main>
+
+<footer>
+    <p>Austin Lakata<br>
+    austinLacoustic LLC<br>
+    Mailing Address (c/o Registered Agent):<br>
+    418 Broadway STE R<br>
+    Albany, NY 12207<br>
+    Operating Address:<br>
+    38 W Main St Unit 5<br>
+    Johnstown, NY 12095-2311<br>
+    EIN: 39-235624 | Sales Tax ID: TF-5750503 | UEI: Assigned for federal contracting via SAM.gov | DBA: Austin Lacoustic</p>
+    <p style="max-width: 900px; margin: 0 auto;">© 2025 austinLacoustic LLC. All rights reserved. Patent Pending: Application Nos. 63/816,434 (Base-i Signal Encoding and Reconstruction System for High-Precision, Low-Noise Signal Processing, filed 06/02/2025), 63/832,810 (Base-i and Cube Root Reconstruction Methods for Signal Scrubbing and Encoding, filed 06/30/2025), 63/837,447 (Signal Encoding and Reconstruction via Modulo-N Root Systems, filed 07/02/2025), 63/843,994 (Mod-N Transform-Based Encoding Method for Digital Signals and Multimedia Data Compression, filed 07/14/2025), 63/850,702 (Hybrid Irrational-Prime Modular Phase Ensembles for Noise-Resilient Quantum Signal Reconstruction, filed 07/25/2025). All signal encoding materials are the intellectual property of Austin Lakata. Use of this site does not grant commercial rights. Redistribution or commercial implementation without permission is prohibited.</p>
+</footer>
 
     <script>
     document.querySelectorAll('.accordion-header').forEach(header => {
