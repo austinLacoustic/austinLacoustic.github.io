@@ -172,6 +172,8 @@
 
 <div class="image-container">
     <img src="sine_wave_clean_encodings.gif" alt="Comparison of Sine Wave Encodings: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
+    <br>
+    <img src="square_wave_clean_encodings.gif" alt="Comparison of Square Wave Encodings: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
 </div>
 
 <section id="investment">
@@ -196,10 +198,6 @@
     <a class="button" href="mailto:austin@austinlacoustic.com?subject=Investment Inquiry">Contact for Pitch Deck</a>
 </section>
 
-<div class="image-container">
-    <img src="square_wave_clean_encodings.gif" alt="Comparison of Square Wave Encodings: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
-</div>
-        
 <section>
     <h2>Developer Toolkit</h2>
     <p>
@@ -215,10 +213,6 @@
     <p style="font-size: 0.9em; margin-top: 10px;">Note: Use of this kit does not grant commercial rights. Contact <a href="mailto:austin@austinlacoustic.com">austin@austinlacoustic.com</a> for licensing inquiries.</p>
 </section>
 
-<div class="image-container">
-    <img src="Gaussian_clean_encodings.gif" alt="Gaussian Wave Encoding Comparison: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
-</div>
-        
 <style>
     /* Existing modal CSS (unchanged) */
     .modal {
@@ -574,11 +568,6 @@
         </table>
     </div>
 </div>
-        
-<div class="image-container">
-    <img src="sawtooth_wave_clean_encodings.gif" alt="Sawtooth Wave Encoding Comparison: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
-</div>
-        
         <section>
     <h2>Real-World Applications</h2>
     <p>Our technology excels in diverse fields, with active testing in audio, biometrics, and quantum computing for enhanced noise resilience (e.g., 5-15% fidelity gains in GHZ chains on IBM Torino). The following sectors highlight the broad capabilities of our patents, validated through extensive testing on 14+ waveforms (synthetics, ECG biometrics, NASA tapes, speech) and real-world signals:</p>
@@ -906,10 +895,6 @@
     </div>
 </section>
 
-<div class="image-container">
-    <img src="step_function_clean_encodings.gif" alt="Step Function Encoding Comparison: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
-</div>
-        
         <section id="basei-vs-modn-vs-fft-comparison">
     <h2>Comparison of Signal Processing Transforms</h2>
     <p>Our Base-i and Mod-N methods are compared below to traditional FFT and several comparable transforms identified through research. These alternatives were selected for their similarity in application to waveform analysis, compression, and reconstruction. Methods like DCT (used in JPEG/MP3 for real-valued compression), DWT (wavelet for multi-resolution time-frequency analysis), STFT (short-time FFT for localized frequency), HHT (adaptive for non-stationary signals), FrFT (fractional Fourier for non-stationary phase preservation), and QWT (quantum wavelet for efficient quantum circuits) offer varying degrees of phase preservation and noise resilience. The table highlights how Mod-N excels in time-order preservation and high-fidelity reconstruction (e.g., infinite dB SNR for sparse signals, SSIM up to 1.00 in v49 tests), making it a strong alternative for real-time and quantum applications.</p>
@@ -1148,8 +1133,18 @@
 </section>
 
 <div class="image-container">
+    <img src="Gaussian_clean_encodings.gif" alt="Gaussian Wave Encoding Comparison: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
+    <br>
+    <img src="sawtooth_wave_clean_encodings.gif" alt="Sawtooth Wave Encoding Comparison: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
+    <br>
+    <img src="step_function_clean_encodings.gif" alt="Step Function Encoding Comparison: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
+    <br>
     <img src="triangle_wave_clean_encodings.gif" alt="Triangle Wave Encoding Comparison: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
 </div>
+
+<p>
+    Base-i and Mod-N methods achieve near-lossless reconstruction (e.g., SNR infinite dB for impulse, 197.59 dB for pink noise in v49) with zero residual imaginary components in optimal configurations. FFT introduces minor artifacts (e.g., MSE up to 0.000000 in quantized tests). Current achievements include optimized compression ratios for real-world audio (e.g., speech recordings at STOI 0.95, SSIM 0.66-0.84, ratio ~4.5:1) and enhanced signal classification via kurtosis, with quantum testing on IBM Torino showing 5-15% fidelity gains.
+</p>
 
 <section>
     <h2>Contact</h2>
