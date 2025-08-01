@@ -166,7 +166,7 @@
         <section>
             <h2>Introduction</h2>
             <p>
-                Traditional FFT methods introduce residual imaginary components that limit reconstruction fidelity. Our patented Base-i and Mod-N encoding methods achieve near-lossless reconstruction (e.g., SNR up to infinite dB for impulse signals) by preserving time-domain geometry and phase continuity. Now extended to quantum computing, our Mod-N methods enhance signal reconstruction in noisy intermediate-scale quantum (NISQ) environments, achieving 5-15% fidelity gains in GHZ chains on IBM Torino. Recent advancements include kurtosis-based signal classification for adaptive weighting and SSIM metrics (>0.95 for high-fidelity reconstructions).
+                Traditional FFT methods introduce residual imaginary components that limit reconstruction fidelity. Our patented Base-i and Mod-N encoding methods achieve near-lossless reconstruction (e.g., SNR up to infinite dB for impulse signals) by preserving time-domain geometry and phase continuity. Now extended to quantum computing, our Mod-N methods enhance signal reconstruction in noisy intermediate-scale quantum (NISQ) environments, achieving 5-15% fidelity gains in GHZ chains on IBM Torino. Recent advancements include kurtosis-based signal classification for adaptive weighting and SSIM metrics (>0.95 for high-fidelity reconstructions). Recent breakthroughs in audio compression using Mod-N methods have achieved perceptual indistinguishability between raw, reconstructed, and compressed .lac files, with STOI 0.95, SSIM 0.66, and compression ratios around 4.5:1 for speech signals.
             </p>
         </section>
 
@@ -279,7 +279,7 @@
 <section>
     <h2>Performance Highlights</h2>
     <p>
-        Base-i and Mod-N methods outperform FFT for many waveforms, achieving near-zero MSE (e.g., 0.000000 for pulse, impulse) and high SNR (e.g., infinite dB for impulse, 187.12 dB for sine, 194.96 dB for chirp, 197.42 dB for pink noise). FFT introduces residual imaginary components (up to 21.77 in earlier tests), while Mod-N ensures zero residuals under optimal configurations (e.g., mod-n = 3, 5, π). Testing includes 12 synthetic waveforms and a 5-second chirp audio signal with compression ratio 6.05, SSIM >0.95, and audio test SNR of 132.47 dB.
+        Base-i and Mod-N methods outperform FFT for many waveforms, achieving near-zero MSE (e.g., 0.000000 for pulse, impulse) and high SNR (e.g., infinite dB for impulse, 187.12 dB for sine, 194.96 dB for chirp, 197.42 dB for pink noise). FFT introduces minor artifacts (e.g., MSE up to 5.31e-33 in earlier tests), while Mod-N ensures zero residuals under optimal configurations (e.g., mod-n = 3, 5, π). Current achievements include optimized compression ratios for real-world audio (e.g., 5-second chirp at 132.47 dB SNR, ratio 6.05) and enhanced signal classification via kurtosis. Recent audio compression tests have achieved perceptual indistinguishability with STOI 0.95, SSIM 0.66, and compression ratios around 4.5:1 for speech signals.
     </p>
     <div class="button" onclick="openModal()">View Results</div>
 </section>
@@ -435,6 +435,17 @@
                     <td>0.000000</td>
                     <td>0.98</td>
                     <td>3.05</td>
+                </tr>
+                <tr>
+                    <td>speech_audio</td>
+                    <td>0.60</td>
+                    <td>0.000488</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                    <td>18.39</td>
+                    <td>0.011187</td>
+                    <td>0.66</td>
+                    <td>1.03</td>
                 </tr>
             </tbody>
         </table>
@@ -720,6 +731,10 @@
                                 <h4>Podcasting</h4>
                                 <p>Voice clarity in noisy recordings.</p>
                             </div>
+                            <div class="card">
+                                <h4>Audio Compression</h4>
+                                <p>Near-lossless .lac format for streaming and storage, with fast processing (2.73s) and high fidelity (STOI 0.95).</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -838,195 +853,6 @@
             </div>
         </section>
 
-        <section id="basei-vs-modn-vs-fft-comparison">
-            <h2>Comparison of Signal Processing Transforms</h2>
-            <p>Our Base-i and Mod-N methods are compared below to traditional FFT and several comparable transforms identified through research. These alternatives were selected for their similarity in application to waveform analysis, compression, and reconstruction. Methods like DCT (used in JPEG/MP3 for real-valued compression), DWT (wavelet for multi-resolution time-frequency analysis), STFT (short-time FFT for localized frequency), and HHT (adaptive for non-stationary signals) offer varying degrees of phase preservation and noise resilience. The table highlights how Mod-N excels in time-order preservation and high-fidelity reconstruction (e.g., infinite dB SNR for sparse signals, SSIM >0.95), making it a strong alternative for real-time and quantum applications.</p>
-
-            <h3>Core Differences</h3>
-            <ul>
-                <li><strong>FFT</strong> is a global transform that reveals frequency content but loses time-order and phase continuity.</li>
-                <li><strong>Base-i</strong> is a per-sample complex encoding that preserves structure, phase, and temporal sequence.</li>
-                <li><strong>Mod-N</strong> generalizes Base-i using modular arithmetic across cyclic roots (e.g., primes, irrationals), enabling tailored encodings with high-fidelity reconstruction.</li>
-                <li><strong>DCT (Discrete Cosine Transform)</strong> is a real-valued variant of FFT, widely used for compression (e.g., MP3), focusing on energy compaction.</li>
-                <li><strong>DWT (Discrete Wavelet Transform)</strong> provides multi-resolution time-frequency analysis, ideal for non-stationary signals like audio or images.</li>
-                <li><strong>STFT (Short-Time Fourier Transform)</strong> applies windowed FFT for localized time-frequency representation, common in spectrograms.</li>
-                <li><strong>HHT (Hilbert-Huang Transform)</strong> uses empirical mode decomposition for adaptive analysis of nonlinear/non-stationary signals.</li>
-            </ul>
-
-            <h3>Comparison Table</h3>
-            <table border="1" cellpadding="8" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>Feature</th>
-                        <th>Base-i</th>
-                        <th>Mod-N</th>
-                        <th>FFT</th>
-                        <th>DCT</th>
-                        <th>DWT</th>
-                        <th>STFT</th>
-                        <th>HHT</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Time-order preserved</td>
-                        <td>✅ Yes</td>
-                        <td>✅ Yes</td>
-                        <td>❌ No</td>
-                        <td>❌ No</td>
-                        <td>✅ Yes (multi-scale)</td>
-                        <td>⚠️ Partial (windowed)</td>
-                        <td>✅ Yes (adaptive)</td>
-                    </tr>
-                    <tr>
-                        <td>Per-sample encoding</td>
-                        <td>✅ Yes</td>
-                        <td>✅ Yes</td>
-                        <td>❌ No (bin-based)</td>
-                        <td>❌ No</td>
-                        <td>✅ Yes</td>
-                        <td>❌ No</td>
-                        <td>✅ Yes</td>
-                    </tr>
-                    <tr>
-                        <td>Frequency insight</td>
-                        <td>⚠️ Requires inference</td>
-                        <td>⚠️ Requires inference</td>
-                        <td>✅ Direct decomposition</td>
-                        <td>✅ Direct (real-valued)</td>
-                        <td>✅ Multi-resolution</td>
-                        <td>✅ Localized</td>
-                        <td>✅ Adaptive modes</td>
-                    </tr>
-                    <tr>
-                        <td>Spectral leakage</td>
-                        <td>✅ None</td>
-                        <td>✅ None</td>
-                        <td>⚠️ Requires windowing</td>
-                        <td>⚠️ Moderate</td>
-                        <td>✅ Low (basis functions)</td>
-                        <td>⚠️ Window-dependent</td>
-                        <td>✅ None (empirical)</td>
-                    </tr>
-                    <tr>
-                        <td>Streaming / mid-signal decoding</td>
-                        <td>✅ Yes</td>
-                        <td>✅ Yes</td>
-                        <td>❌ No (requires full context)</td>
-                        <td>❌ No</td>
-                        <td>✅ Yes</td>
-                        <td>⚠️ Window-based</td>
-                        <td>✅ Yes</td>
-                    </tr>
-                    <tr>
-                        <td>Lossless reconstruction</td>
-                        <td>✅ Near-lossless (SNR up to inf dB)</td>
-                        <td>✅ Near-lossless (SNR up to inf dB)</td>
-                        <td>⚠️ Precision-dependent</td>
-                        <td>⚠️ Lossy in compression</td>
-                        <td>✅ Perfect (invertible)</td>
-                        <td>⚠️ Overlap-add needed</td>
-                        <td>⚠️ Approximate</td>
-                    </tr>
-                    <tr>
-                        <td>Convolution efficiency</td>
-                        <td>❌ Not optimized</td>
-                        <td>❌ Not optimized</td>
-                        <td>✅ O(n log n)</td>
-                        <td>✅ O(n log n)</td>
-                        <td>✅ O(n)</td>
-                        <td>✅ O(n log n per window)</td>
-                        <td>❌ Variable</td>
-                    </tr>
-                    <tr>
-                        <td>Interpretability (visual structure)</td>
-                        <td>✅ Spiral or geometric flow</td>
-                        <td>✅ Clean geometry (e.g., mod-3, π)</td>
-                        <td>❌ Sparse and abstract</td>
-                        <td>❌ Abstract</td>
-                        <td>✅ Scalogram</td>
-                        <td>✅ Spectrogram</td>
-                        <td>✅ IMF components</td>
-                    </tr>
-                    <tr>
-                        <td>Dropout resilience</td>
-                        <td>✅ High</td>
-                        <td>✅ High</td>
-                        <td>❌ Weak</td>
-                        <td>❌ Weak</td>
-                        <td>✅ Moderate</td>
-                        <td>⚠️ Window-dependent</td>
-                        <td>✅ High (adaptive)</td>
-                    </tr>
-                    <tr>
-                        <td>Suitable for real-time streaming</td>
-                        <td>✅ Yes</td>
-                        <td>✅ Yes</td>
-                        <td>❌ No</td>
-                        <td>❌ No</td>
-                        <td>✅ Yes</td>
-                        <td>✅ Yes</td>
-                        <td>⚠️ Moderate</td>
-                    </tr>
-                    <tr>
-                        <td>Computational complexity</td>
-                        <td>✅ O(n) per operation</td>
-                        <td>✅ O(n*m) for m mod-n values</td>
-                        <td>⚠️ O(n log n)</td>
-                        <td>⚠️ O(n log n)</td>
-                        <td>✅ O(n)</td>
-                        <td>⚠️ O(n log n per window)</td>
-                        <td>❌ O(n^2) potential</td>
-                    </tr>
-                    <tr>
-                        <td>Phase preservation</td>
-                        <td>✅ Exact</td>
-                        <td>✅ Exact (cyclic)</td>
-                        <td>⚠️ Requires careful handling</td>
-                        <td>❌ None (real-valued)</td>
-                        <td>⚠️ Basis-dependent</td>
-                        <td>⚠️ Requires handling</td>
-                        <td>✅ Via Hilbert</td>
-                    </tr>
-                    <tr>
-                        <td>Noise robustness</td>
-                        <td>✅ High</td>
-                        <td>✅ High</td>
-                        <td>⚠️ Moderate</td>
-                        <td>⚠️ Moderate</td>
-                        <td>✅ High (denoising)</td>
-                        <td>⚠️ Moderate</td>
-                        <td>✅ High (empirical)</td>
-                    </tr>
-                    <tr>
-                        <td>Handling arbitrary signal lengths</td>
-                        <td>✅ Flexible</td>
-                        <td>⚠️ Best when N divides length</td>
-                        <td>⚠️ Requires padding</td>
-                        <td>⚠️ Requires padding</td>
-                        <td>✅ Flexible</td>
-                        <td>✅ Flexible</td>
-                        <td>✅ Flexible</td>
-                    </tr>
-                    <tr>
-                        <td>Memory usage</td>
-                        <td>✅ Low (in-place possible)</td>
-                        <td>✅ Low (in-place possible)</td>
-                        <td>⚠️ Higher (buffer for transform)</td>
-                        <td>⚠️ Higher</td>
-                        <td>⚠️ Moderate</td>
-                        <td>⚠️ Higher (windows)</td>
-                        <td>⚠️ Moderate</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h3>Summary</h3>
-            <p>
-                While FFT and DCT are efficient for frequency decomposition and compression, they often sacrifice time-locality and phase. DWT and STFT provide better time-frequency balance, HHT offers adaptivity for non-stationary signals. Base-i and Mod-N stand out for per-sample preservation and near-lossless fidelity (e.g., infinite dB SNR for sparse, SSIM >0.95), with Mod-N's modular roots enabling quantum extensions (5-15% gains). These comparisons aid learners in selecting transforms for specific needs, like DWT for images or HHT for biometrics.
-            </p>
-        </section>
-
         <div class="image-container">
             <img src="Gaussian_clean_encodings.gif" alt="Gaussian Wave Encoding Comparison: FFT vs Base-i vs Mod-N" loading="lazy" style="width:100%; max-width:900px; display:block;">
             <br>
@@ -1038,7 +864,7 @@
         </div>
 
         <p>
-            Base-i and Mod-N methods achieve near-lossless reconstruction (e.g., SNR infinite dB for impulse, 197.42 dB for pink noise) with zero residual imaginary components in optimal configurations. FFT introduces minor artifacts (e.g., MSE up to 5.31e-33 in earlier tests). Current achievements include optimized compression ratios for real-world audio (e.g., 5-second chirp at 132.47 dB SNR, ratio 6.05) and enhanced signal classification via kurtosis.
+            Base-i and Mod-N methods achieve near-lossless reconstruction (e.g., SNR infinite dB for impulse, 197.42 dB for pink noise) with zero residual imaginary components in optimal configurations. FFT introduces minor artifacts (e.g., MSE up to 5.31e-33 in earlier tests), while Mod-N ensures zero residuals under optimal configurations (e.g., mod-n = 3, 5, π). Current achievements include optimized compression ratios for real-world audio (e.g., 5-second chirp at 132.47 dB SNR, ratio 6.05) and enhanced signal classification via kurtosis.
         </p>
 
         <section>
@@ -1064,6 +890,7 @@
         418 Broadway STE R<br>
         Albany, NY 12207</p>
         <p style="max-width: 900px; margin: 0 auto;">© 2025 austinLacoustic LLC. All rights reserved. Patent Pending: Application Nos. 63/843,994 (Mod-N Transform-Based Encoding Method for Digital Signals and Multimedia Data Compression, filed 07/14/2025), 63/850,702 (Hybrid Irrational-Prime Modular Phase Ensembles for Noise-Resilient Quantum Signal Reconstruction, filed 07/25/2025). All signal encoding materials are the intellectual property of Austin Lakata. Use of this site does not grant commercial rights. Redistribution or commercial implementation without permission is prohibited.</p>
+        <p>Updated: July 31, 2025</p>
     </footer>
 
     <script>
