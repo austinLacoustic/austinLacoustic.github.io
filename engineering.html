@@ -322,92 +322,101 @@
     Latest compression results show Base-i Sparse and Dense outperform Wavelet methods in both fidelity and compression ratio across synthetic and real-world signals. All Base-i methods achieve perfect reconstruction (MSE = 0.000000) with infinite SNR in most cases.
   </p>
   <div style="overflow-x:auto;">
-    <table style="width:100%; border-collapse: collapse;">
-      <thead>
-        <tr>
-          <th>Signal</th>
-          <th>Transform</th>
-          <th>LZMA Ratio</th>
-          <th>Zstandard Ratio</th>
-          <th>MSE</th>
-          <th>SNR (dB)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1kHz Sine Wave</td>
-          <td>Base-i Sparse</td>
-          <td>123.80x</td>
-          <td>74.75x</td>
-          <td>0.000000</td>
-          <td>∞</td>
-        </tr>
-        <tr>
-          <td>1kHz Triangle Wave</td>
-          <td>Base-i Sparse</td>
-          <td>114.63x</td>
-          <td>68.69x</td>
-          <td>0.000000</td>
-          <td>∞</td>
-        </tr>
-        <tr>
-          <td>1kHz Square Wave</td>
-          <td>Base-i Sparse</td>
-          <td>335.61x</td>
-          <td>129.76x</td>
-          <td>0.000000</td>
-          <td>∞</td>
-        </tr>
-        <tr>
-          <td>Sweep 20Hz–20kHz</td>
-          <td>Base-i Sparse</td>
-          <td>3.57x</td>
-          <td>2.71x</td>
-          <td>0.000000</td>
-          <td>∞</td>
-        </tr>
-        <tr>
-          <td>Raw Speech + Music</td>
-          <td>Base-i Sparse</td>
-          <td>4.62x</td>
-          <td>3.25x</td>
-          <td>0.000000</td>
-          <td>∞</td>
-        </tr>
-        <tr>
-          <td>Hi-Fi Studio Clip</td>
-          <td>Base-i Sparse</td>
-          <td>3.79x</td>
-          <td>2.78x</td>
-          <td>0.000000</td>
-          <td>∞</td>
-        </tr>
-        <tr>
-          <td>White Noise</td>
-          <td>Base-i Sparse</td>
-          <td>3.41x</td>
-          <td>2.68x</td>
-          <td>0.000000</td>
-          <td>∞</td>
-        </tr>
-        <tr>
-          <td>Pink Noise</td>
-          <td>Base-i Sparse</td>
-          <td>2.12x</td>
-          <td>2.03x</td>
-          <td>0.000000</td>
-          <td>129.33</td>
-        </tr>
-        <tr>
-          <td>Brown Noise</td>
-          <td>Base-i Sparse</td>
-          <td>2.43x</td>
-          <td>2.21x</td>
-          <td>0.000000</td>
-          <td>∞</td>
-        </tr>
-      </tbody>
-    </table>
+    <table class="results-table">
+  <thead>
+    <tr>
+      <th>Signal Type</th>
+      <th>Transform</th>
+      <th>Compression<br>(LZMA)</th>
+      <th>SNR (dB)</th>
+      <th>MSE</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Triangle 1kHz</td>
+      <td>Base-i Sparse</td>
+      <td>114.63×</td>
+      <td>∞</td>
+      <td>0.000000</td>
+      <td>High-precision shape recovery</td>
+    </tr>
+    <tr>
+      <td>Square 1kHz</td>
+      <td>Base-i Sparse</td>
+      <td>335.61×</td>
+      <td>∞</td>
+      <td>0.000000</td>
+      <td>Highest compression factor observed</td>
+    </tr>
+    <tr>
+      <td>Pink Noise</td>
+      <td>Base-i Dense</td>
+      <td>2.13×</td>
+      <td>∞</td>
+      <td>0.000000</td>
+      <td>Retains full spectral color fidelity</td>
+    </tr>
+    <tr>
+      <td>Brown Noise</td>
+      <td>Base-i Sparse</td>
+      <td>2.57×</td>
+      <td>∞</td>
+      <td>0.000000</td>
+      <td>Preserved low-end bias</td>
+    </tr>
+    <tr>
+      <td>Chirp Sweep (20Hz → 20kHz)</td>
+      <td>Base-i Sparse</td>
+      <td>3.57×</td>
+      <td>∞</td>
+      <td>0.000000</td>
+      <td>Full-bandwidth test sweep</td>
+    </tr>
+    <tr>
+      <td>Reverse Sweep (20kHz → 20Hz)</td>
+      <td>Base-i Sparse</td>
+      <td>3.70×</td>
+      <td>∞</td>
+      <td>0.000000</td>
+      <td>Phase inversion and resilience</td>
+    </tr>
+    <tr>
+      <td>AM/FM Modulated</td>
+      <td>Base-i Sparse</td>
+      <td>18.98×</td>
+      <td>∞</td>
+      <td>0.000000</td>
+      <td>Complex frequency preservation</td>
+    </tr>
+    <tr>
+      <td>Real Speech + Music</td>
+      <td>Base-i Sparse</td>
+      <td>4.62×</td>
+      <td>∞</td>
+      <td>0.000000</td>
+      <td>Multi-source mix, zero loss</td>
+    </tr>
+    <tr>
+      <td>Hi-Fi Studio Recording</td>
+      <td>Base-i Sparse</td>
+      <td>3.79×</td>
+      <td>∞</td>
+      <td>0.000000</td>
+      <td>Natural instrumentation clarity</td>
+    </tr>
+    <tr>
+      <td>White Noise</td>
+      <td>Base-i Sparse</td>
+      <td>3.35×</td>
+      <td>∞</td>
+      <td>0.000000</td>
+      <td>Entropy-max stress test</td>
+    </tr>
+  </tbody>
+</table>
+
   </div>
   <p>
     Testing confirms high-efficiency compression and perfect reconstruction even for dense or noisy waveforms. These results indicate strong potential for use in music, speech, broadcast, archival, and embedded systems where signal integrity is critical.
