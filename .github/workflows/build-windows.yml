@@ -33,26 +33,57 @@ jobs:
         shell: pwsh
         run: pyinstaller --onefile --name alak cli/main.py
 
-      - name: Package (zip + checksums + README)
+      - name: Package (zip + launcher + checksums + README)
         shell: pwsh
         run: |
+          $ErrorActionPreference = 'Stop'
+          $ver = "${{ github.ref_name }}"
           New-Item -ItemType Directory -Force -Path pkg | Out-Null
+
+          # copy exe produced by PyInstaller
           Copy-Item -Path "dist/alak.exe" -Destination "pkg/alak.exe" -Force
-          $ver = $env:GITHUB_REF_NAME
-          $zip = "pkg/alak-win64-$ver.zip"
-          Compress-Archive -Path "pkg/alak.exe" -DestinationPath $zip -Force
-          $sha = Get-FileHash -Path $zip -Algorithm SHA256
-          "$($sha.Hash)  $(Split-Path -Leaf $zip)" | Out-File -FilePath "pkg/SHA256SUMS.txt" -Encoding ascii
-          @(
+
+          # README
+          $readmeLines = @(
             "ALAK Windows CLI $ver",
             "",
             "How to use:",
-            "1) Unzip the archive.",
-            "2) Open PowerShell in the unzipped folder.",
-            "3) Run: .\alak.exe --help",
+            " 1) Unzip the archive.",
+            " 2) Double-click ALAK_Start.bat (shows quick help).",
+            " 3) Or open PowerShell here and run:",
+            "    .\alak.exe --help",
             "",
-            "SmartScreen: If warned, click 'More info' -> 'Run anyway'."
-          ) | Set-Content -Path "pkg/README_windows.txt" -Encoding UTF8
+            'SmartScreen: If warned, click "More info" -> "Run anyway".'
+          )
+          Set-Content -Path "pkg/README_windows.txt" -Value $readmeLines -Encoding UTF8
+
+          # Double-click launcher
+          $batLines = @(
+            "@echo off",
+            "setlocal",
+            "cd /d ""%~dp0""",
+            "echo.",
+            "echo === ALAK Windows CLI ===",
+            "echo.",
+            "echo Type the following to see all options:",
+            "echo   alak.exe --help",
+            "echo.",
+            "echo Quick examples:",
+            "echo   alak.exe encode --in input.wav --out output.alak --dp dp3",
+            "echo   alak.exe decode --in output.alak --out output.wav",
+            "echo.",
+            "pause"
+          )
+          Set-Content -Path "pkg/ALAK_Start.bat" -Value $batLines -Encoding ASCII
+
+          # ZIP (exe + readme + launcher)
+          $zip = "pkg/alak-win64-$ver.zip"
+          if (Test-Path $zip) { Remove-Item $zip -Force }
+          Compress-Archive -Path "pkg/alak.exe","pkg/README_windows.txt","pkg/ALAK_Start.bat" -DestinationPath $zip
+
+          # SHA256 checksum
+          $sha = Get-FileHash -Path $zip -Algorithm SHA256
+          "$($sha.Hash)  $(Split-Path -Leaf $zip)" | Out-File -FilePath "pkg/SHA256SUMS.txt" -Encoding ascii
 
       - name: Publish release (attach assets)
         uses: ncipollo/release-action@v1
