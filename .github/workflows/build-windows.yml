@@ -125,3 +125,7 @@ jobs:
             pkg/*.zip
             pkg/SHA256SUMS.txt
             pkg/README_windows.txt
+            pkg/help.txt
+            pkg/test.wav
+            pkg/test.alak
+            pkg/roundtrip.wav
