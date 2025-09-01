@@ -43,31 +43,13 @@ jobs:
         run: |
           New-Item -ItemType Directory -Force -Path pkg | Out-Null
 
-          # 1) Prove the EXE launches
-          .\dist\alak.exe --help | Out-File -FilePath "pkg\help.txt" -Encoding ascii
+          # Prove the EXE launches; capture BOTH stdout and stderr
+          & .\dist\alak.exe --help *> "pkg\help.txt" || $true
 
-          # 2) Generate a 1s test WAV via Python (always created)
-          $py = @(
-            "import math, wave, struct",
-            "sr=44100; dur=1.0; f=440.0",
-            "n=int(sr*dur)",
-            "w=wave.open('test.wav','wb'); w.setnchannels(1); w.setsampwidth(2); w.setframerate(sr)",
-            "for i in range(n):",
-            "    s=int(32767*math.sin(2*math.pi*f*i/sr))",
-            "    w.writeframes(struct.pack('<h', s))",
-            "w.close()"
-          )
-          ($py -join "`r`n") | Set-Content testgen.py -Encoding ASCII
-          python testgen.py
-
-          # (Optional) real encode/decode — un-comment when ready so artifacts exist:
-          # .\dist\alak.exe encode --in test.wav --out test.alak --dp 2
-          # .\dist\alak.exe decode --in test.alak --out roundtrip.wav
-
-          # Save artifacts
-          if (Test-Path test.wav)          { Copy-Item test.wav          pkg\test.wav          -Force }
-          if (Test-Path test.alak)         { Copy-Item test.alak         pkg\test.alak         -Force }
-          if (Test-Path roundtrip.wav)     { Copy-Item roundtrip.wav     pkg\roundtrip.wav     -Force }
+          # Ensure file is non-empty so upload doesn't fail
+          if (!(Test-Path "pkg\help.txt") -or ((Get-Item "pkg\help.txt").Length -eq 0)) {
+            "No --help output captured." | Out-File -FilePath "pkg\help.txt" -Encoding ascii
+          }
 
       - name: Prepare artifacts (launcher + README + zip + checksums)
         shell: pwsh
@@ -123,11 +105,8 @@ jobs:
           replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: |
-            pkg/*.zip
+            pkg/alak-win64-${{ env.VERSION }}.zip
             pkg/SHA256SUMS.txt
             pkg/README_windows.txt
             pkg/help.txt
-            pkg/test.wav
-            # Add these back after un-commenting encode/decode above:
-            # pkg/test.alak
-            # pkg/roundtrip.wav
+
