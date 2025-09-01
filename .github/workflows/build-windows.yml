@@ -36,12 +36,46 @@ jobs:
         shell: pwsh
         run: pyinstaller --onefile --name alak cli/main.py
 
+      - name: Smoke test on Windows runner
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path pkg | Out-Null
+
+          # 1) Prove the EXE launches
+          .\dist\alak.exe --help | Out-File -FilePath "pkg\help.txt" -Encoding ascii
+
+          # 2) (Optional) generate a 1s test WAV via Python
+          $py = @(
+            "import math, wave, struct",
+            "sr=44100; dur=1.0; f=440.0",
+            "n=int(sr*dur)",
+            "w=wave.open('test.wav','wb'); w.setnchannels(1); w.setsampwidth(2); w.setframerate(sr)",
+            "for i in range(n):",
+            "    s=int(32767*math.sin(2*math.pi*f*i/sr))",
+            "    w.writeframes(struct.pack('<h', s))",
+            "w.close()"
+          )
+          ($py -join "`r`n") | Set-Content testgen.py -Encoding ASCII
+          python testgen.py
+
+          # 3) (Optional) run a real command if your CLI supports it.
+          #    Adjust subcommand/flags to match your CLI:
+          # .\dist\alak.exe encode --in test.wav --out test.alak --dp 2
+          # .\dist\alak.exe decode --in test.alak --out roundtrip.wav
+
+          # Save what we produced so we can inspect it in the release
+          if (Test-Path test.wav)   { Copy-Item test.wav   pkg\test.wav   -Force }
+          if (Test-Path test.alak)  { Copy-Item test.alak  pkg\test.alak  -Force }
+          if (Test-Path roundtrip.wav) { Copy-Item roundtrip.wav pkg\roundtrip.wav -Force }
+
+
       - name: Prepare artifacts (launcher + README + zip + checksums)
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path pkg | Out-Null
           Copy-Item "dist/alak.exe" "pkg/alak.exe" -Force
 
+          # README
           $readmeLines = @(
             "ALAK Windows CLI $env:VERSION",
             "",
@@ -54,6 +88,7 @@ jobs:
           )
           Set-Content -Path "pkg/README_windows.txt" -Value $readmeLines -Encoding UTF8
 
+          # Double-click launcher (keeps console open)
           $batLines = @(
             "@echo off",
             "setlocal",
@@ -66,13 +101,15 @@ jobs:
             "echo.",
             "pause"
           )
-          $batText = ($batLines -join "`r`n").Replace('%VERSION%', $env:VERSION)
+          $batText = ($batLines -join \"`r`n\").Replace('%VERSION%', $env:VERSION)
           Set-Content -Path "pkg/ALAK Launcher.bat" -Value $batText -Encoding ASCII
 
+          # Zip it all
           $zipPath = "pkg/alak-win64-$env:VERSION.zip"
           if (Test-Path $zipPath) { Remove-Item $zipPath -Force }
           Compress-Archive -Path @("pkg/alak.exe","pkg/ALAK Launcher.bat","pkg/README_windows.txt") -DestinationPath $zipPath -Force
 
+          # Checksums
           $sha = Get-FileHash -Path $zipPath -Algorithm SHA256
           "$($sha.Hash)  $(Split-Path -Leaf $zipPath)" | Out-File -FilePath "pkg/SHA256SUMS.txt" -Encoding ascii
 
