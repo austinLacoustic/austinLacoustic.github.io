@@ -12,13 +12,15 @@ permissions:
 jobs:
   win-build:
     runs-on: windows-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set VERSION env
         shell: pwsh
-        run: echo "VERSION=$env:GITHUB_REF_NAME" >> $env:GITHUB_ENV
+        run: |
+          "VERSION=$env:GITHUB_REF_NAME" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -44,7 +46,7 @@ jobs:
           # 1) Prove the EXE launches
           .\dist\alak.exe --help | Out-File -FilePath "pkg\help.txt" -Encoding ascii
 
-          # 2) (Optional) generate a 1s test WAV via Python
+          # 2) Generate a 1s test WAV via Python (always created)
           $py = @(
             "import math, wave, struct",
             "sr=44100; dur=1.0; f=440.0",
@@ -58,16 +60,14 @@ jobs:
           ($py -join "`r`n") | Set-Content testgen.py -Encoding ASCII
           python testgen.py
 
-          # 3) (Optional) run a real command if your CLI supports it.
-          #    Adjust subcommand/flags to match your CLI:
+          # (Optional) real encode/decode — un-comment when ready so artifacts exist:
           # .\dist\alak.exe encode --in test.wav --out test.alak --dp 2
           # .\dist\alak.exe decode --in test.alak --out roundtrip.wav
 
-          # Save what we produced so we can inspect it in the release
-          if (Test-Path test.wav)   { Copy-Item test.wav   pkg\test.wav   -Force }
-          if (Test-Path test.alak)  { Copy-Item test.alak  pkg\test.alak  -Force }
-          if (Test-Path roundtrip.wav) { Copy-Item roundtrip.wav pkg\roundtrip.wav -Force }
-
+          # Save artifacts
+          if (Test-Path test.wav)          { Copy-Item test.wav          pkg\test.wav          -Force }
+          if (Test-Path test.alak)         { Copy-Item test.alak         pkg\test.alak         -Force }
+          if (Test-Path roundtrip.wav)     { Copy-Item roundtrip.wav     pkg\roundtrip.wav     -Force }
 
       - name: Prepare artifacts (launcher + README + zip + checksums)
         shell: pwsh
@@ -101,7 +101,8 @@ jobs:
             "echo.",
             "pause"
           )
-          $batText = ($batLines -join \"`r`n\").Replace('%VERSION%', $env:VERSION)
+          # NOTE: fixed the quote escaping here:
+          $batText = ($batLines -join "`r`n").Replace('%VERSION%', $env:VERSION)
           Set-Content -Path "pkg/ALAK Launcher.bat" -Value $batText -Encoding ASCII
 
           # Zip it all
@@ -127,5 +128,6 @@ jobs:
             pkg/README_windows.txt
             pkg/help.txt
             pkg/test.wav
-            pkg/test.alak
-            pkg/roundtrip.wav
+            # Add these back after un-commenting encode/decode above:
+            # pkg/test.alak
+            # pkg/roundtrip.wav
