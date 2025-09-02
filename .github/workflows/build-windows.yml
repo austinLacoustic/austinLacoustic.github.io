@@ -1,4 +1,4 @@
-name: Build Windows CLI & GUI
+name: Build Windows GUI + CLI
 
 on:
   push:
@@ -13,7 +13,8 @@ jobs:
   win-build:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Set VERSION env
         shell: pwsh
@@ -24,51 +25,80 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install dependencies
+      - name: Install build deps
         shell: pwsh
         run: |
           python -m pip install --upgrade pip
-          if (Test-Path "requirements.txt") { pip install -r requirements.txt }
-          pip install pyinstaller PyQt6 numpy soundfile sounddevice msgpack
+          pip install pyinstaller PyQt6 numpy soundfile msgpack zstandard
 
       - name: Build CLI (PyInstaller)
         shell: pwsh
         run: pyinstaller --onefile --name alak cli/main.py
 
-      - name: Build GUI (PyInstaller, PyQt6)
+      - name: Build GUI (PyInstaller, windowed)
         shell: pwsh
         run: >
           pyinstaller --noconsole --onefile --name ALAK_GUI
           --collect-all PyQt6
-          --collect-data soundfile
+          --collect-all soundfile
           app/alak_qt.py
 
-      - name: Package zip + README + checksums
+      - name: Smoke test CLI (prints help)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path pkg | Out-Null
+          .\dist\alak.exe --help | Out-File -FilePath "pkg\help.txt" -Encoding ascii
+
+      - name: Prepare artifacts (launchers + README + zip + checksums)
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path pkg | Out-Null
           Copy-Item "dist/alak.exe" "pkg/alak.exe" -Force
           Copy-Item "dist/ALAK_GUI.exe" "pkg/ALAK_GUI.exe" -Force
-          $ver = $env:VERSION
+
+          # Double-click launchers
+          $guiCmd = "@echo off`r`nstart "" ""%~dp0ALAK_GUI.exe""`r`n"
+          Set-Content -Path "pkg/ALAK GUI.cmd" -Value $guiCmd -Encoding ASCII
+
+          $cliCmd = "@echo off`r`ncd /d %~dp0`r`ncmd /k alak.exe --help`r`n"
+          Set-Content -Path "pkg/ALAK CLI (shell).cmd" -Value $cliCmd -Encoding ASCII
+
+          # README
           $readme = @(
-            "ALAK for Windows $ver",
+            "ALAK Windows $env:VERSION",
             "",
-            "GUI:",
-            "  Double-click ALAK_GUI.exe",
+            "Included:",
+            "  • ALAK_GUI.exe  – double-click GUI encoder/player (PyQt6)",
+            "  • ALAK GUI.cmd  – double-click launcher for the GUI",
+            "  • alak.exe      – command-line tool",
+            "  • ALAK CLI (shell).cmd – opens a console with help and stays open",
             "",
-            "CLI:",
-            "  Open PowerShell here and run: .\alak.exe --help",
-            "",
-            "Note: If SmartScreen warns, click 'More info' -> 'Run anyway'."
+            "Usage:",
+            "  1) Unzip the archive.",
+            "  2) Double-click 'ALAK GUI.cmd' (recommended) OR ALAK_GUI.exe.",
+            "     (SmartScreen: click 'More info' → 'Run anyway' if prompted.)",
+            "  3) For CLI, double-click 'ALAK CLI (shell).cmd' or run 'alak.exe' in PowerShell.",
+            ""
           )
           Set-Content -Path "pkg/README_windows.txt" -Value $readme -Encoding UTF8
-          $zip = "pkg/alak-windows-$ver.zip"
+
+          # Zip everything
+          $zip = "pkg/alak-windows-$env:VERSION.zip"
           if (Test-Path $zip) { Remove-Item $zip -Force }
-          Compress-Archive -Path @("pkg/alak.exe","pkg/ALAK_GUI.exe","pkg/README_windows.txt") -DestinationPath $zip -Force
+          Compress-Archive -Path @(
+            "pkg/ALAK_GUI.exe",
+            "pkg/alak.exe",
+            "pkg/ALAK GUI.cmd",
+            "pkg/ALAK CLI (shell).cmd",
+            "pkg/README_windows.txt",
+            "pkg/help.txt"
+          ) -DestinationPath $zip -Force
+
+          # SHA256
           $sha = Get-FileHash -Path $zip -Algorithm SHA256
           "$($sha.Hash)  $(Split-Path -Leaf $zip)" | Out-File -FilePath "pkg/SHA256SUMS.txt" -Encoding ascii
 
-      - name: Publish release
+      - name: Publish release (attach assets)
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ github.ref_name }}
@@ -80,3 +110,4 @@ jobs:
             pkg/*.zip
             pkg/SHA256SUMS.txt
             pkg/README_windows.txt
+            pkg/help.txt
