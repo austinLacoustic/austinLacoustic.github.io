@@ -36,6 +36,10 @@ jobs:
         run: pyinstaller --noconfirm --clean `
               --onefile --console `
               --name alak `
+              --paths . `
+              --collect-submodules core `
+              --collect-submodules formats `
+              --collect-submodules cli `
               cli/main.py
 
       # --- GUI exe (windowed) ---
@@ -44,11 +48,20 @@ jobs:
         run: pyinstaller --noconfirm --clean `
               --onefile --windowed `
               --name ALAK_GUI `
-              app/alak_qt.py `
+              --paths . `
+              --collect-submodules core `
+              --collect-submodules formats `
+              --collect-submodules cli `
+              --hidden-import core.encoder `
+              --hidden-import core.decoder `
+              --hidden-import core.dp_auto `
+              --hidden-import formats.alak_io `
+              --hidden-import cli.compress_alak_file `
               --collect-all PyQt6 `
               --collect-all numpy `
               --collect-all soundfile `
-              --collect-binaries soundfile
+              --collect-binaries soundfile `
+              app/alak_qt.py
 
       # --- GUI console variant (for field debugging) ---
       - name: Build GUI (console debug)
@@ -56,11 +69,20 @@ jobs:
         run: pyinstaller --noconfirm --clean `
               --onefile --console `
               --name ALAK_GUI_console `
-              app/alak_qt.py `
+              --paths . `
+              --collect-submodules core `
+              --collect-submodules formats `
+              --collect-submodules cli `
+              --hidden-import core.encoder `
+              --hidden-import core.decoder `
+              --hidden-import core.dp_auto `
+              --hidden-import formats.alak_io `
+              --hidden-import cli.compress_alak_file `
               --collect-all PyQt6 `
               --collect-all numpy `
               --collect-all soundfile `
-              --collect-binaries soundfile
+              --collect-binaries soundfile `
+              app/alak_qt.py
 
       # ---- STAGE FILES WE WILL ZIP ----
       - name: Stage artifacts
