@@ -2,8 +2,7 @@ name: Build Windows GUI + CLI
 
 on:
   push:
-    tags:
-      - 'v*'
+    tags: ['v*']
   workflow_dispatch:
 
 permissions:
@@ -19,10 +18,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set VERSION env
-        shell: pwsh
-        run: echo "VERSION=$env:GITHUB_REF_NAME" >> $env:GITHUB_ENV
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -33,10 +28,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip wheel
           if (Test-Path "requirements.txt") { pip install -r requirements.txt }
-          # Ensure pack-time deps for Windows GUI:
-          pip install pyinstaller
-          pip install PyQt6 numpy soundfile msgpack zstandard
-          # (sounddevice is optional – GUI handles its absence)
+          pip install pyinstaller PyQt6 numpy soundfile msgpack zstandard
 
       # --- CLI exe ---
       - name: Build CLI (onefile, console)
@@ -70,38 +62,44 @@ jobs:
               --collect-all soundfile `
               --collect-binaries soundfile
 
-      - name: Prepare package
+      # ---- STAGE FILES WE WILL ZIP ----
+      - name: Stage artifacts
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path pkg | Out-Null
-          Copy-Item dist/alak.exe            pkg/alak.exe        -Force
-          Copy-Item dist/ALAK_GUI.exe        pkg/ALAK_GUI.exe    -Force
-          Copy-Item dist/ALAK_GUI_console.exe pkg/ALAK_GUI_console.exe -Force
+          Copy-Item -Path "dist\alak.exe","dist\ALAK_GUI.exe","dist\ALAK_GUI_console.exe" -Destination pkg -Force
+
+          # Helper to open a shell that keeps the window open with the CLI
+          "@echo off`r`ncd /d %~dp0`r`nstart cmd /k alak.exe --help" |
+            Set-Content -Path "pkg\ALAK CLI (shell).cmd" -Encoding ASCII
 
           # README
           @(
-            "ALAK Windows v$env:VERSION",
+            "ALAK for Windows $env:VERSION",
             "",
             "Files:",
-            "  - ALAK_GUI.exe            ← double-click (normal GUI)",
-            "  - ALAK_GUI_console.exe    ← shows errors in a console if GUI won’t launch",
-            "  - alak.exe                ← CLI (run from PowerShell / cmd)",
+            "  - ALAK_GUI.exe            (GUI)",
+            "  - ALAK_GUI_console.exe    (GUI with console for debugging)",
+            "  - alak.exe                (CLI)",
+            "  - ALAK CLI (shell).cmd    (double-click: CLI in a shell)",
             "",
-            "If nothing appears when you double-click ALAK_GUI.exe:",
-            "  1) Run ALAK_GUI_console.exe and read any error text.",
-            "  2) If ALAK_GUI_error.txt appears, send it with a short note.",
-            "",
-            "CLI quick test:",
-            "  Shift-right-click → Open PowerShell here, then:",
-            "      .\\alak.exe --help"
-          ) | Set-Content -Path pkg/README_windows.txt -Encoding UTF8
+            "Note: Builds are unsigned. If SmartScreen appears, click 'More info' -> 'Run anyway'."
+          ) | Set-Content -Path "pkg\README_windows.txt" -Encoding UTF8
 
-          # Zip + checksums
-          $zip = "pkg/alak-windows-$env:VERSION.zip"
+      - name: Package (zip + checksum)
+        shell: pwsh
+        run: |
+          $zip = "pkg\alak-windows-$env:VERSION.zip"
           if (Test-Path $zip) { Remove-Item $zip -Force }
-          Compress-Archive -Path pkg\\* -DestinationPath $zip
-          (Get-FileHash -Path $zip -Algorithm SHA256).Hash + "  " + (Split-Path -Leaf $zip) `
-            | Set-Content -Path pkg/SHA256SUMS.txt -Encoding ascii
+          Compress-Archive -Path @(
+            "pkg\alak.exe",
+            "pkg\ALAK_GUI.exe",
+            "pkg\ALAK_GUI_console.exe",
+            "pkg\ALAK CLI (shell).cmd",
+            "pkg\README_windows.txt"
+          ) -DestinationPath $zip
+          (Get-FileHash -Path $zip -Algorithm SHA256).Hash + "  " + (Split-Path -Leaf $zip) |
+            Set-Content -Path "pkg\SHA256SUMS.txt" -Encoding ascii
 
       - name: Publish release
         uses: ncipollo/release-action@v1
