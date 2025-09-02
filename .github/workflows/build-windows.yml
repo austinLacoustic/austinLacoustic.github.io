@@ -2,7 +2,8 @@ name: Build Windows GUI + CLI
 
 on:
   push:
-    tags: ['v*']
+    tags:
+      - 'v*'
   workflow_dispatch:
 
 permissions:
@@ -30,99 +31,76 @@ jobs:
           if (Test-Path "requirements.txt") { pip install -r requirements.txt }
           pip install pyinstaller PyQt6 numpy soundfile msgpack zstandard
 
-      # --- CLI exe ---
-      - name: Build CLI (onefile, console)
+      # --- CLI exe (console) ---
+      - name: Build CLI
         shell: pwsh
         run: pyinstaller --noconfirm --clean `
               --onefile --console `
               --name alak `
-              --paths . `
-              --collect-submodules core `
-              --collect-submodules formats `
-              --collect-submodules cli `
               cli/main.py
 
-      # --- GUI exe (windowed) ---
-      - name: Build GUI (onefile, windowed)
+      # --- GUI exe (windowed, renamed) ---
+      - name: Build GUI
         shell: pwsh
         run: pyinstaller --noconfirm --clean `
               --onefile --windowed `
-              --name ALAK_GUI `
-              --paths . `
-              --collect-submodules core `
-              --collect-submodules formats `
-              --collect-submodules cli `
-              --hidden-import core.encoder `
-              --hidden-import core.decoder `
-              --hidden-import core.dp_auto `
-              --hidden-import formats.alak_io `
-              --hidden-import cli.compress_alak_file `
+              --name "ALAK-Encoder-win" `
+              app/alak_qt.py `
               --collect-all PyQt6 `
               --collect-all numpy `
               --collect-all soundfile `
-              --collect-binaries soundfile `
-              app/alak_qt.py
+              --collect-binaries soundfile
 
-      # --- GUI console variant (for field debugging) ---
-      - name: Build GUI (console debug)
-        shell: pwsh
-        run: pyinstaller --noconfirm --clean `
-              --onefile --console `
-              --name ALAK_GUI_console `
-              --paths . `
-              --collect-submodules core `
-              --collect-submodules formats `
-              --collect-submodules cli `
-              --hidden-import core.encoder `
-              --hidden-import core.decoder `
-              --hidden-import core.dp_auto `
-              --hidden-import formats.alak_io `
-              --hidden-import cli.compress_alak_file `
-              --collect-all PyQt6 `
-              --collect-all numpy `
-              --collect-all soundfile `
-              --collect-binaries soundfile `
-              app/alak_qt.py
-
-      # ---- STAGE FILES WE WILL ZIP ----
-      - name: Stage artifacts
+      # --- Stage files we want to ship ---
+      - name: Stage package
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path pkg | Out-Null
-          Copy-Item -Path "dist\alak.exe","dist\ALAK_GUI.exe","dist\ALAK_GUI_console.exe" -Destination pkg -Force
+          Copy-Item "dist/alak.exe"             "pkg/alak.exe" -Force
+          Copy-Item "dist/ALAK-Encoder-win.exe" "pkg/ALAK-Encoder-win.exe" -Force
 
-          # Helper to open a shell that keeps the window open with the CLI
-          "@echo off`r`ncd /d %~dp0`r`nstart cmd /k alak.exe --help" |
-            Set-Content -Path "pkg\ALAK CLI (shell).cmd" -Encoding ASCII
+          # Write a double-clickable CLI launcher that keeps the console open
+          $bat = @(
+            "@echo off",
+            "cd /d %~dp0",
+            "title ALAK CLI (shell)",
+            "echo Running: alak.exe --help",
+            "echo.",
+            "alak.exe --help",
+            "echo.",
+            "pause"
+          )
+          $bat | Set-Content -Path "pkg/ALAK CLI (shell).cmd" -Encoding ASCII
 
-          # README
-          @(
-            "ALAK for Windows $env:VERSION",
+          # README with the new name
+          $readme = @(
+            "ALAK for Windows  $env:VERSION",
             "",
-            "Files:",
-            "  - ALAK_GUI.exe            (GUI)",
-            "  - ALAK_GUI_console.exe    (GUI with console for debugging)",
-            "  - alak.exe                (CLI)",
-            "  - ALAK CLI (shell).cmd    (double-click: CLI in a shell)",
+            "GUI:",
+            "  Double-click ALAK-Encoder-win.exe",
+            "  (If SmartScreen warns, click 'More info' -> 'Run anyway')",
             "",
-            "Note: Builds are unsigned. If SmartScreen appears, click 'More info' -> 'Run anyway'."
-          ) | Set-Content -Path "pkg\README_windows.txt" -Encoding UTF8
+            "CLI:",
+            "  Double-click 'ALAK CLI (shell).cmd' or open PowerShell here and run: .\alak.exe --help",
+            "",
+            "Audio playback:",
+            "  If you see 'Error querying device' on a VM/RDP:",
+            "    - Enable Remote Audio in your RDP client",
+            "    - Ensure 'Windows Audio' service is running"
+          )
+          $readme | Set-Content -Path "pkg/README_windows.txt" -Encoding UTF8
 
-      - name: Package (zip + checksum)
+      # --- Zip + checksums ---
+      - name: Zip + checksums
         shell: pwsh
         run: |
-          $zip = "pkg\alak-windows-$env:VERSION.zip"
+          $zip = "pkg/ALAK-Encoder-win-$env:VERSION.zip"
           if (Test-Path $zip) { Remove-Item $zip -Force }
-          Compress-Archive -Path @(
-            "pkg\alak.exe",
-            "pkg\ALAK_GUI.exe",
-            "pkg\ALAK_GUI_console.exe",
-            "pkg\ALAK CLI (shell).cmd",
-            "pkg\README_windows.txt"
-          ) -DestinationPath $zip
-          (Get-FileHash -Path $zip -Algorithm SHA256).Hash + "  " + (Split-Path -Leaf $zip) |
-            Set-Content -Path "pkg\SHA256SUMS.txt" -Encoding ascii
+          Compress-Archive -Path "pkg\*" -DestinationPath $zip
+          (Get-FileHash -Path $zip -Algorithm SHA256).Hash + "  " + (Split-Path -Leaf $zip) `
+            | Set-Content -Path "pkg/SHA256SUMS.txt" -Encoding ascii
 
+      # --- Publish/replace assets on the tag ---
       - name: Publish release
         uses: ncipollo/release-action@v1
         with:
@@ -132,6 +110,6 @@ jobs:
           replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: |
-            pkg/alak-windows-${{ env.VERSION }}.zip
+            pkg/ALAK-Encoder-win-${{ env.VERSION }}.zip
             pkg/SHA256SUMS.txt
             pkg/README_windows.txt
