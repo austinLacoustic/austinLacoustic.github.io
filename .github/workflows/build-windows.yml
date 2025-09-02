@@ -12,6 +12,8 @@ permissions:
 jobs:
   win-build:
     runs-on: windows-latest
+    env:
+      VERSION: ${{ github.ref_name }}
 
     steps:
       - name: Checkout
