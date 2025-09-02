@@ -1,4 +1,4 @@
-name: Build Windows CLI
+name: Build Windows CLI & GUI
 
 on:
   push:
@@ -12,91 +12,63 @@ permissions:
 jobs:
   win-build:
     runs-on: windows-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set VERSION env
         shell: pwsh
-        run: |
-          "VERSION=$env:GITHUB_REF_NAME" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        run: echo "VERSION=$env:GITHUB_REF_NAME" >> $env:GITHUB_ENV
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Install build deps
+      - name: Install dependencies
         shell: pwsh
         run: |
           python -m pip install --upgrade pip
           if (Test-Path "requirements.txt") { pip install -r requirements.txt }
-          pip install pyinstaller
+          pip install pyinstaller PyQt6 numpy soundfile sounddevice msgpack
 
-      - name: Build EXE (PyInstaller)
+      - name: Build CLI (PyInstaller)
         shell: pwsh
         run: pyinstaller --onefile --name alak cli/main.py
 
-      - name: Smoke test on Windows runner
+      - name: Build GUI (PyInstaller, PyQt6)
         shell: pwsh
-        run: |
-          New-Item -ItemType Directory -Force -Path pkg | Out-Null
+        run: >
+          pyinstaller --noconsole --onefile --name ALAK_GUI
+          --collect-all PyQt6
+          --collect-data soundfile
+          app/alak_qt.py
 
-          # Prove the EXE launches; capture BOTH stdout and stderr
-          & .\dist\alak.exe --help *> "pkg\help.txt" || $true
-
-          # Ensure file is non-empty so upload doesn't fail
-          if (!(Test-Path "pkg\help.txt") -or ((Get-Item "pkg\help.txt").Length -eq 0)) {
-            "No --help output captured." | Out-File -FilePath "pkg\help.txt" -Encoding ascii
-          }
-
-      - name: Prepare artifacts (launcher + README + zip + checksums)
+      - name: Package zip + README + checksums
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path pkg | Out-Null
           Copy-Item "dist/alak.exe" "pkg/alak.exe" -Force
-
-          # README
-          $readmeLines = @(
-            "ALAK Windows CLI $env:VERSION",
+          Copy-Item "dist/ALAK_GUI.exe" "pkg/ALAK_GUI.exe" -Force
+          $ver = $env:VERSION
+          $readme = @(
+            "ALAK for Windows $ver",
             "",
-            "Quick start:",
-            "1) Unzip the archive.",
-            "2) Double-click 'ALAK Launcher.bat' to open a console that shows usage.",
-            "   (Or open PowerShell here and run: .\alak.exe --help)",
+            "GUI:",
+            "  Double-click ALAK_GUI.exe",
             "",
-            "SmartScreen: If warned, click 'More info' -> 'Run anyway'."
+            "CLI:",
+            "  Open PowerShell here and run: .\alak.exe --help",
+            "",
+            "Note: If SmartScreen warns, click 'More info' -> 'Run anyway'."
           )
-          Set-Content -Path "pkg/README_windows.txt" -Value $readmeLines -Encoding UTF8
+          Set-Content -Path "pkg/README_windows.txt" -Value $readme -Encoding UTF8
+          $zip = "pkg/alak-windows-$ver.zip"
+          if (Test-Path $zip) { Remove-Item $zip -Force }
+          Compress-Archive -Path @("pkg/alak.exe","pkg/ALAK_GUI.exe","pkg/README_windows.txt") -DestinationPath $zip -Force
+          $sha = Get-FileHash -Path $zip -Algorithm SHA256
+          "$($sha.Hash)  $(Split-Path -Leaf $zip)" | Out-File -FilePath "pkg/SHA256SUMS.txt" -Encoding ascii
 
-          # Double-click launcher (keeps console open)
-          $batLines = @(
-            "@echo off",
-            "setlocal",
-            "cd /d %~dp0",
-            "title ALAK Toolkit CLI",
-            "echo.",
-            "echo ALAK Toolkit CLI (%VERSION%)",
-            "echo.",
-            "alak.exe --help",
-            "echo.",
-            "pause"
-          )
-          # NOTE: fixed the quote escaping here:
-          $batText = ($batLines -join "`r`n").Replace('%VERSION%', $env:VERSION)
-          Set-Content -Path "pkg/ALAK Launcher.bat" -Value $batText -Encoding ASCII
-
-          # Zip it all
-          $zipPath = "pkg/alak-win64-$env:VERSION.zip"
-          if (Test-Path $zipPath) { Remove-Item $zipPath -Force }
-          Compress-Archive -Path @("pkg/alak.exe","pkg/ALAK Launcher.bat","pkg/README_windows.txt") -DestinationPath $zipPath -Force
-
-          # Checksums
-          $sha = Get-FileHash -Path $zipPath -Algorithm SHA256
-          "$($sha.Hash)  $(Split-Path -Leaf $zipPath)" | Out-File -FilePath "pkg/SHA256SUMS.txt" -Encoding ascii
-
-      - name: Publish release (attach assets)
+      - name: Publish release
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ github.ref_name }}
@@ -105,8 +77,6 @@ jobs:
           replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: |
-            pkg/alak-win64-${{ env.VERSION }}.zip
+            pkg/*.zip
             pkg/SHA256SUMS.txt
             pkg/README_windows.txt
-            pkg/help.txt
-
