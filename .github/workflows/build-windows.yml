@@ -12,6 +12,7 @@ permissions:
 jobs:
   win-build:
     runs-on: windows-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,80 +26,82 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install build deps
+      - name: Install deps
         shell: pwsh
         run: |
-          python -m pip install --upgrade pip
-          pip install pyinstaller PyQt6 numpy soundfile msgpack zstandard
+          python -m pip install --upgrade pip wheel
+          if (Test-Path "requirements.txt") { pip install -r requirements.txt }
+          # Ensure pack-time deps for Windows GUI:
+          pip install pyinstaller
+          pip install PyQt6 numpy soundfile msgpack zstandard
+          # (sounddevice is optional – GUI handles its absence)
 
-      - name: Build CLI (PyInstaller)
+      # --- CLI exe ---
+      - name: Build CLI (onefile, console)
         shell: pwsh
-        run: pyinstaller --onefile --name alak cli/main.py
+        run: pyinstaller --noconfirm --clean `
+              --onefile --console `
+              --name alak `
+              cli/main.py
 
-      - name: Build GUI (PyInstaller, windowed)
+      # --- GUI exe (windowed) ---
+      - name: Build GUI (onefile, windowed)
         shell: pwsh
-        run: >
-          pyinstaller --noconsole --onefile --name ALAK_GUI
-          --collect-all PyQt6
-          --collect-all soundfile
-          app/alak_qt.py
+        run: pyinstaller --noconfirm --clean `
+              --onefile --windowed `
+              --name ALAK_GUI `
+              app/alak_qt.py `
+              --collect-all PyQt6 `
+              --collect-all numpy `
+              --collect-all soundfile `
+              --collect-binaries soundfile
 
-      - name: Smoke test CLI (prints help)
+      # --- GUI console variant (for field debugging) ---
+      - name: Build GUI (console debug)
+        shell: pwsh
+        run: pyinstaller --noconfirm --clean `
+              --onefile --console `
+              --name ALAK_GUI_console `
+              app/alak_qt.py `
+              --collect-all PyQt6 `
+              --collect-all numpy `
+              --collect-all soundfile `
+              --collect-binaries soundfile
+
+      - name: Prepare package
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path pkg | Out-Null
-          .\dist\alak.exe --help | Out-File -FilePath "pkg\help.txt" -Encoding ascii
-
-      - name: Prepare artifacts (launchers + README + zip + checksums)
-        shell: pwsh
-        run: |
-          New-Item -ItemType Directory -Force -Path pkg | Out-Null
-          Copy-Item "dist/alak.exe" "pkg/alak.exe" -Force
-          Copy-Item "dist/ALAK_GUI.exe" "pkg/ALAK_GUI.exe" -Force
-
-          # Double-click launchers
-          $guiCmd = "@echo off`r`nstart "" ""%~dp0ALAK_GUI.exe""`r`n"
-          Set-Content -Path "pkg/ALAK GUI.cmd" -Value $guiCmd -Encoding ASCII
-
-          $cliCmd = "@echo off`r`ncd /d %~dp0`r`ncmd /k alak.exe --help`r`n"
-          Set-Content -Path "pkg/ALAK CLI (shell).cmd" -Value $cliCmd -Encoding ASCII
+          Copy-Item dist/alak.exe            pkg/alak.exe        -Force
+          Copy-Item dist/ALAK_GUI.exe        pkg/ALAK_GUI.exe    -Force
+          Copy-Item dist/ALAK_GUI_console.exe pkg/ALAK_GUI_console.exe -Force
 
           # README
-          $readme = @(
-            "ALAK Windows $env:VERSION",
+          @(
+            "ALAK Windows v$env:VERSION",
             "",
-            "Included:",
-            "  • ALAK_GUI.exe  – double-click GUI encoder/player (PyQt6)",
-            "  • ALAK GUI.cmd  – double-click launcher for the GUI",
-            "  • alak.exe      – command-line tool",
-            "  • ALAK CLI (shell).cmd – opens a console with help and stays open",
+            "Files:",
+            "  - ALAK_GUI.exe            ← double-click (normal GUI)",
+            "  - ALAK_GUI_console.exe    ← shows errors in a console if GUI won’t launch",
+            "  - alak.exe                ← CLI (run from PowerShell / cmd)",
             "",
-            "Usage:",
-            "  1) Unzip the archive.",
-            "  2) Double-click 'ALAK GUI.cmd' (recommended) OR ALAK_GUI.exe.",
-            "     (SmartScreen: click 'More info' → 'Run anyway' if prompted.)",
-            "  3) For CLI, double-click 'ALAK CLI (shell).cmd' or run 'alak.exe' in PowerShell.",
-            ""
-          )
-          Set-Content -Path "pkg/README_windows.txt" -Value $readme -Encoding UTF8
+            "If nothing appears when you double-click ALAK_GUI.exe:",
+            "  1) Run ALAK_GUI_console.exe and read any error text.",
+            "  2) If ALAK_GUI_error.txt appears, send it with a short note.",
+            "",
+            "CLI quick test:",
+            "  Shift-right-click → Open PowerShell here, then:",
+            "      .\\alak.exe --help"
+          ) | Set-Content -Path pkg/README_windows.txt -Encoding UTF8
 
-          # Zip everything
+          # Zip + checksums
           $zip = "pkg/alak-windows-$env:VERSION.zip"
           if (Test-Path $zip) { Remove-Item $zip -Force }
-          Compress-Archive -Path @(
-            "pkg/ALAK_GUI.exe",
-            "pkg/alak.exe",
-            "pkg/ALAK GUI.cmd",
-            "pkg/ALAK CLI (shell).cmd",
-            "pkg/README_windows.txt",
-            "pkg/help.txt"
-          ) -DestinationPath $zip -Force
+          Compress-Archive -Path pkg\\* -DestinationPath $zip
+          (Get-FileHash -Path $zip -Algorithm SHA256).Hash + "  " + (Split-Path -Leaf $zip) `
+            | Set-Content -Path pkg/SHA256SUMS.txt -Encoding ascii
 
-          # SHA256
-          $sha = Get-FileHash -Path $zip -Algorithm SHA256
-          "$($sha.Hash)  $(Split-Path -Leaf $zip)" | Out-File -FilePath "pkg/SHA256SUMS.txt" -Encoding ascii
-
-      - name: Publish release (attach assets)
+      - name: Publish release
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ github.ref_name }}
@@ -107,7 +110,6 @@ jobs:
           replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: |
-            pkg/*.zip
+            pkg/alak-windows-${{ env.VERSION }}.zip
             pkg/SHA256SUMS.txt
             pkg/README_windows.txt
-            pkg/help.txt
