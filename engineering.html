@@ -165,11 +165,13 @@
     <main>
         <section>
           <h2>Introduction</h2>
-        <p>
-          ALAK is a time-domain encoder that keeps what matters—sequence, phase, and determinism—while hitting compact,
-          streamable containers. Use Standard for broad content, Base-i for sparse/structured signals, and dial precision
-          (dp1–dp4) for your quality/size target.
-        </p>
+          <p>
+            Traditional frequency-domain pipelines (FFT/MDCT, wavelets) are superb for analysis and classic codecs, but
+            their block/window processing can introduce time-locality trade-offs and windowing artifacts when pushed to
+            extreme compression settings. Our <strong>Base-i</strong> and <strong>Mod-N</strong> methods are
+            <em>complementary</em>: they operate per-sample in the time domain with deterministic, reversible packing that
+            preserves sequence and phase relationships.
+          </p>
         
           <p>
             The <strong>ALAK Toolkit</strong> (patent-pending) provides two selectable pipelines—Standard (Δ→zigzag→RLE)
@@ -363,7 +365,7 @@
      vs QFT baselines under matched depths. These results are experimental and not part of the current desktop builds;
      methods and data available under NDA.</p>
 
-  <div class="button" onclick="openModal()">View Results</div>
+<div class="button" onclick="openModal()">View Results</div>
 </section>
 
 <div id="resultsModal" class="modal">
@@ -469,6 +471,7 @@
     <p style="font-size:0.9em;opacity:0.9;">Full logs, circuits, and calibration context available under NDA.</p>
   </details>
 </section>
+</div>
 </div>
         
 <section id="applications">
