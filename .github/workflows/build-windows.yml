@@ -69,40 +69,84 @@ jobs:
       - name: Stage package
         shell: pwsh
         run: |
+          Set-StrictMode -Version Latest
+          $ErrorActionPreference = "Stop"
+
+          # Show what PyInstaller produced (helps if anything is missing)
+          Write-Host "=== DIST tree ==="
+          Get-ChildItem -Recurse -Force dist | Select-Object FullName
+
           New-Item -ItemType Directory -Force -Path pkg | Out-Null
-          Copy-Item "dist/alak.exe"             "pkg/alak.exe" -Force
-          Copy-Item "dist/ALAK-Encoder-win.exe" "pkg/ALAK-Encoder-win.exe" -Force
 
-          # Write a double-clickable CLI launcher that keeps the console open
-          $bat = @(
-            "@echo off",
-            "cd /d %~dp0",
-            "title ALAK CLI (shell)",
-            "echo Running: alak.exe --help",
-            "echo.",
-            "alak.exe --help",
-            "echo.",
-            "pause"
+          # ---- CLI: accept either onefile (dist\alak.exe) or onedir (dist\alak\alak.exe)
+          $cliOneFile  = "dist\alak.exe"
+          $cliOneDirEx = "dist\alak\alak.exe"
+
+          if (Test-Path $cliOneFile) {
+            Copy-Item $cliOneFile "pkg\alak.exe" -Force
+          } elseif (Test-Path $cliOneDirEx) {
+            # keep the full onedir folder so the exe finds its DLLs
+            Copy-Item "dist\alak" "pkg\alak" -Recurse -Force
+          } else {
+            throw "Could not find CLI build: dist\alak.exe or dist\alak\alak.exe"
+          }
+
+          # ---- GUI: prefer onedir folder, fall back to onefile exe
+          $guiOneDir  = "dist\ALAK-Encoder-win"
+          $guiOneFile = "dist\ALAK-Encoder-win.exe"
+
+          if (Test-Path $guiOneDir) {
+            Copy-Item $guiOneDir "pkg\ALAK-Encoder-win" -Recurse -Force
+          } elseif (Test-Path $guiOneFile) {
+            Copy-Item $guiOneFile "pkg\ALAK-Encoder-win.exe" -Force
+          } else {
+            throw "Could not find GUI build: dist\ALAK-Encoder-win[.exe]"
+          }
+
+          # ---- CLI launcher (keeps the console open)
+          $bat = @'
+          @echo off
+          cd /d "%~dp0"
+          if exist "alak\alak.exe" (
+            pushd "alak"
+            title ALAK CLI (shell)
+            echo Running: alak.exe --help
+            echo.
+            alak.exe --help
+            echo.
+            popd
+          ) else (
+            title ALAK CLI (shell)
+            echo Running: alak.exe --help
+            echo.
+            ".\alak.exe" --help
+            echo.
           )
-          $bat | Set-Content -Path "pkg/ALAK CLI (shell).cmd" -Encoding ASCII
+          pause
+          '@
+          Set-Content -Path "pkg\ALAK CLI (shell).cmd" -Value $bat -Encoding ASCII
 
-          # README (avoid indentation quirks by joining lines)
+          # ---- README
           $ver = "${{ github.ref_name }}"
-          $readmeLines = @(
-            "ALAK for Windows  $ver",
-            "",
-            "GUI:",
-            "  1) Open the folder: ALAK-Encoder-win",
-            "  2) Double-click: ALAK-Encoder-win.exe",
-            "",
-            "CLI:",
-            "  - Double-click: ALAK CLI (shell).cmd",
-            "    (or open PowerShell here and run: .\alak\alak.exe --help)",
-            "",
-            "SmartScreen: If warned, click 'More info' -> 'Run anyway' (unsigned app)."
-          )
-          $readme = $readmeLines -join "`r`n"
+          $readme = @"
+          ALAK for Windows  $ver
+
+          GUI:
+            1) Open the folder: ALAK-Encoder-win
+            2) Double-click: ALAK-Encoder-win.exe
+
+          CLI:
+            - Double-click: ALAK CLI (shell).cmd
+              (or open PowerShell here and run: .\alak.exe --help)
+          "@
           Set-Content -Path "pkg\README_windows.txt" -Value $readme -Encoding UTF8
+
+          # ---- Zip + SHA256
+          $zip = "pkg\ALAK-Encoder-win-$ver.zip"
+          if (Test-Path $zip) { Remove-Item $zip -Force }
+          Compress-Archive -Path "pkg\*" -DestinationPath $zip -Force
+          (Get-FileHash -Path $zip -Algorithm SHA256).Hash + "  " + (Split-Path -Leaf $zip) |
+            Set-Content -Path "pkg\SHA256SUMS.txt" -Encoding ascii
 
       # --- Zip + checksums ---
       - name: Zip + checksums
