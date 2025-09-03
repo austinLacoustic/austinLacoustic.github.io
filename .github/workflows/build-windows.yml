@@ -31,25 +31,39 @@ jobs:
           if (Test-Path "requirements.txt") { pip install -r requirements.txt }
           pip install pyinstaller PyQt6 numpy soundfile msgpack zstandard
 
-      # --- CLI exe (console) ---
+      # ---- Build CLI (onedir, console) ----
       - name: Build CLI
         shell: pwsh
         run: pyinstaller --noconfirm --clean `
-              --onefile --console `
-              --name alak `
-              cli/main.py
+               --onedir --console `
+               --name alak `
+               --paths . `
+               cli/main.py `
+               --collect-all core `
+               --collect-all formats `
+               --collect-all cli
 
-      # --- GUI exe (windowed, renamed) ---
+      # ---- Build GUI (onedir, windowed) ----
       - name: Build GUI
         shell: pwsh
         run: pyinstaller --noconfirm --clean `
-              --onefile --windowed `
-              --name "ALAK-Encoder-win" `
-              app/alak_qt.py `
-              --collect-all PyQt6 `
-              --collect-all numpy `
-              --collect-all soundfile `
-              --collect-binaries soundfile
+               --onedir --windowed `
+               --name "ALAK-Encoder-win" `
+               --paths . `
+               app/alak_qt.py `
+               --collect-all PyQt6 `
+               --collect-all numpy `
+               --collect-all soundfile `
+               --collect-binaries soundfile `
+               --collect-all core `
+               --collect-all formats `
+               --collect-all cli `
+               --hidden-import core.encoder `
+               --hidden-import core.decoder `
+               --hidden-import core.dp_auto `
+               --hidden-import formats.alak_io `
+               --hidden-import cli.compress_alak_file
+
 
       # --- Stage files we want to ship ---
       - name: Stage package
