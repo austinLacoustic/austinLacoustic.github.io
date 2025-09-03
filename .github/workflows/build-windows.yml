@@ -86,23 +86,23 @@ jobs:
           )
           $bat | Set-Content -Path "pkg/ALAK CLI (shell).cmd" -Encoding ASCII
 
-          # README with the new name
-          $readme = @(
-            "ALAK for Windows  $env:VERSION",
+          # README (avoid indentation quirks by joining lines)
+          $ver = "${{ github.ref_name }}"
+          $readmeLines = @(
+            "ALAK for Windows  $ver",
             "",
             "GUI:",
-            "  Double-click ALAK-Encoder-win.exe",
-            "  (If SmartScreen warns, click 'More info' -> 'Run anyway')",
+            "  1) Open the folder: ALAK-Encoder-win",
+            "  2) Double-click: ALAK-Encoder-win.exe",
             "",
             "CLI:",
-            "  Double-click 'ALAK CLI (shell).cmd' or open PowerShell here and run: .\alak.exe --help",
+            "  - Double-click: ALAK CLI (shell).cmd",
+            "    (or open PowerShell here and run: .\alak\alak.exe --help)",
             "",
-            "Audio playback:",
-            "  If you see 'Error querying device' on a VM/RDP:",
-            "    - Enable Remote Audio in your RDP client",
-            "    - Ensure 'Windows Audio' service is running"
+            "SmartScreen: If warned, click 'More info' -> 'Run anyway' (unsigned app)."
           )
-          $readme | Set-Content -Path "pkg/README_windows.txt" -Encoding UTF8
+          $readme = $readmeLines -join "`r`n"
+          Set-Content -Path "pkg\README_windows.txt" -Value $readme -Encoding UTF8
 
       # --- Zip + checksums ---
       - name: Zip + checksums
