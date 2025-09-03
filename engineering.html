@@ -164,14 +164,32 @@
 
     <main>
         <section>
-            <h2>Introduction</h2>
-            <p>
-                Traditional FFT-based audio reconstruction often introduces residual imaginary components and phase smearing, limiting real-world fidelity. Our patented Base-i and Mod-N methods preserve time-domain structure and phase continuity by transforming signals into complex domains, enabling near-lossless audio reconstruction. 
-                <br><br>
-                Benchmarks show signal-to-noise ratios (SNR) exceeding 324 dB and mean squared error (MSE) as low as 0.0 on real-world recordings and noise types. Our most recent audio compression pipeline supports both dense and sparse Base-i encoding, exports .wav reconstructions for AB comparison, and outperforms traditional methods in clarity and preservation of low-frequency content.
-                <br><br>
-                Mod-N methods further extend this into quantum applications, showing 5–15% fidelity improvement over standard QFT in IBM’s Torino NISQ devices. Adaptive modular phase staggering and irrational roots (π, e) yield robust performance in noisy qubit environments.
-            </p>
+          <h2>Introduction</h2>
+        <p>
+          ALAK is a time-domain encoder that keeps what matters—sequence, phase, and determinism—while hitting compact,
+          streamable containers. Use Standard for broad content, Base-i for sparse/structured signals, and dial precision
+          (dp1–dp4) for your quality/size target.
+        </p>
+        
+          <p>
+            The <strong>ALAK Toolkit</strong> (patent-pending) provides two selectable pipelines—Standard (Δ→zigzag→RLE)
+            and Base-i (complex sparse index/value streams)—with tunable decimal precision (dp1–dp4) and compact containers
+            (<code>.alak</code> JSON or <code>.alak.bin</code> MsgPack, optionally <code>.bz2/.gz/.xz/.zst</code>). On
+            structured/synthetic signals, reconstructions are effectively lossless (MSE ≈ 0 within numeric precision).
+            On real-world material (speech/music), typical settings deliver high fidelity (≈55–83&nbsp;dB SNR, low LSD)
+            while keeping files small and streamable.
+          </p>
+        
+          <p>
+            For quantum-adapted workflows, Mod-N ensembles with irrational phase staggering (π, e, φ) have shown
+            <em>observed</em> 5–15% relative fidelity gains over QFT-only baselines in small-qubit, NISQ-regime tests.
+            This is exploratory but promising for noise-mitigated control and readout streams.
+          </p>
+        
+          <p style="font-size:0.9em;opacity:0.9;margin-top:6px;">
+            Notes: Performance varies with signal type and settings. “Effectively lossless” refers to integer-lossless cases within
+            floating-point precision. ALAK is available for Windows (EXE bundle) and macOS (DMG).
+          </p>
         </section>
 
         <div class="image-container">
@@ -348,7 +366,7 @@
   <div class="button" onclick="openModal()">View Results</div>
 </section>
 
-    <div id="resultsModal" class="modal">
+<div id="resultsModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
   <section id="performance">
@@ -451,7 +469,8 @@
     <p style="font-size:0.9em;opacity:0.9;">Full logs, circuits, and calibration context available under NDA.</p>
   </details>
 </section>
-
+</div>
+        
 <section id="applications">
   <h2>Real-World Applications</h2>
   <p>
