@@ -181,23 +181,28 @@
         </div>
 
         <section id="investment">
-            <h2>Investment Opportunities</h2>
+          <h2>Investment Opportunities</h2>
             <p>
-                austinLacoustic is seeking strategic partners and licensing agreements to scale our patented signal processing suite. With field-tested applications across audio compression, defense, AI, and quantum systems, our technology is positioned for multi-sector impact.
+              We’re seeking strategic partners and licensing agreements to scale the ALAK (Austin Lacoustic Audio Kit) compression and packaging stack. ALAK targets high-quality, compact, and tooling-friendly audio storage for production and archival workflows.
             </p>
-            <p>
-                Core metrics include:
-                <ul>
-                    <li>SNR: up to 324.4 dB (Mod-12 on real signals)</li>
-                    <li>MSE: down to 0.0 across multiple waveform types</li>
-                    <li>Compression Ratios: 4.5x–5.5x (Gzip/LZMA on Base-i Sparse)</li>
-                    <li>Formats: Base-i, Mod-N, Wavelet, and hybrid ensembles</li>
-                    <li>Test Set: Over 14 waveform types, including speech, pink/brown noise, guitar recordings, ECG data, and archival audio</li>
-                </ul>
+            
+            <p><strong>What’s shipping today</strong></p>
+            <ul>
+              <li><strong>Containers:</strong> <code>.alak</code> (JSON) and <code>.alak.bin</code> (MsgPack), optionally compressed (<code>.bz2</code>, <code>.gz</code>, <code>.xz</code>, <code>.zst</code>).</li>
+              <li><strong>Pipelines:</strong> Standard and Base-i (sparse) with optional LP/RLE; adjustable DP levels.</li>
+              <li><strong>Tooling:</strong> GUI + CLI for Windows 10+ and macOS 12+.</li>
+            </ul>
+            
+            <p><strong>Current beta metrics (internal test set; content-dependent)</strong></p>
+            <ul>
+              <li><strong>End-to-end size reduction vs WAV:</strong> ~30%–75% smaller (≈1.4×–4.0×), depending on material and compression method.</li>
+              <li><strong>Quality:</strong> typical SNR ~60–80 dB at recommended settings (dp4), with MSE on normalized signals around 1e-4–1e-3.</li>
+            </ul>
+            
+            <p style="font-size:.95em;">
+              Figures are indicative and vary by content (speech, music, noise, etc.). We can share a reproducible benchmark pack and scripts on request.
             </p>
-            <p>
-                Quantum Extension: Our Mod-N methods outperform FFT/QFT in quantum simulations, improving reconstruction quality in IBM’s GHZ chain tests by 5–15%, and reducing ensemble deviation by ~6%.
-            </p>
+            
             <p>
                 <strong>Patents:</strong>
                 <ul>
