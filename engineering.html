@@ -1,0 +1,63 @@
+<header>
+  <h1>ALAK: Deterministic Audio Packaging (Beta)</h1>
+  <p>Two reversible, streamable pipelines for WAV/PCM → compact containers (.alak / .alak.bin).</p>
+</header>
+
+<main>
+  <section id="what">
+    <h2>What it is</h2>
+    <p>
+      ALAK provides two time-domain pipelines—<strong>Standard</strong> (Δ→zigzag→RLE) and
+      <strong>Base-i</strong> (sparse index/value)—with tunable decimal precision (dp1–dp4) and
+      compact JSON or MsgPack containers. Round-trip is exact for integer-quantized inputs at the
+      chosen precision; on speech/music, typical settings yield ≈55–83&nbsp;dB SNR with 1.5×–4.0×
+      size reduction vs WAV (content-dependent).
+    </p>
+    <a class="button" href="https://github.com/austinLacoustic/austinLacoustic.github.io/releases" target="_blank" rel="noopener">Download (Windows 10+ / macOS 12+)</a>
+    <p style="font-size:.9em">Windows: you may see SmartScreen for unsigned binaries → <em>More info → Run anyway</em>.</p>
+  </section>
+
+  <section id="results">
+    <h2>Key results (current beta)</h2>
+    <ul>
+      <li>Size vs WAV: ~1.5×–4.0× smaller at dp3–dp4; external .bz2/.zst can add 20–60% shrink.</li>
+      <li>Quality: speech/music ≈55–83&nbsp;dB SNR; structured signals reconstruct with MSE ≈ 0 (within numeric precision).</li>
+      <li>Deterministic, streamable containers; CLI/GUI for reproducible testing.</li>
+    </ul>
+
+    <details>
+      <summary>Show compact comparison table</summary>
+      <table class="results-table">
+        <thead><tr><th>Scenario</th><th>Start with</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Telemetry / slow trends</td><td>Standard</td><td>Long runs after differencing → tiny payloads</td></tr>
+          <tr><td>Tonal / structured audio</td><td>Base-i</td><td>Sparsifies repeated structure; easy round-trip</td></tr>
+          <tr><td>Transient-rich</td><td>DWT/STFT (baseline)</td><td>Better onset localization; ALAK usable, but trade-offs</td></tr>
+        </tbody>
+      </table>
+    </details>
+  </section>
+
+  <section id="quantum">
+    <h2>Research: Mod-N (exploratory)</h2>
+    <p>
+      Mod-N generalizes Base-i to cyclic phase sets (incl. irrationals). In small-qubit IBM tests
+      (e.g., Torino), ensembles with phase staggering (π, e, φ) <em>observed</em> ~5–15% higher
+      state-fidelity vs matched QFT baselines. Not part of desktop builds; methods/data available under NDA.
+    </p>
+  </section>
+
+  <section id="downloads">
+    <h2>Downloads & Docs</h2>
+    <ul>
+      <li>Encoder GUI + CLI (Win/macOS) and README at the Releases page.</li>
+      <li>Reproducible pack: small WAVs + expected SNR/MSE (on request).</li>
+    </ul>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:austin@austinlacoustic.com">austin@austinlacoustic.com</a> · Albany, NY</p>
+    <p style="font-size:.9em">© 2025 austinLacoustic LLC. Patent-pending. Use of the beta does not grant commercial rights.</p>
+  </section>
+</main>
